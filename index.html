@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home | WEBEERZAMBRANO</title>
+    <link rel="stylesheet" href="build/css/app.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+</head>
+
+<body>
+    <header class="header">
+        <div class="barraNav">
+            <a href="index.html" class="logo_barraNav">
+                <img src="build/img/logoensvg.svg" alt="Logo WEBEERZAMBRANO">
+            </a>
+
+            <nav class="navofbarraNav">
+                <a class="navegacion__boton" href="showroom.html">Productos</a>
+
+                <a class="navegacion__boton" href="sobrenosotros.html">Sobre Nosotros</a>
+
+                <a class="navegacion__boton" href="contacto.html">Contacto</a>
+            </nav>
+
+        </div>
+        <div class="carrusel">
+            <a href="showroom.html" class="slide activo">
+                <img src="build/img/carrusel1.jpg" alt="Promoción cerveza">
+            </a>
+
+            <a href="showroom.html" class="slide">
+                <img src="build/img/carrusel2.jpg" alt="Promoción snacks">
+            </a>
+
+            <a href="showroom.html" class="slide">
+                <img src="build/img/carrusel3.jpg" alt="Promoción bebidas">
+            </a>
+
+        </div>
+        <div class="contenidoHeader">
+            <h1>
+                Las mejores cervezas de Zambrano
+            </h1>
+            <p>
+                Entregas rápidas. Cerveza helada.
+            </p>
+            <a href="showroom.html" class="botonPedido">
+                Hacer Pedido
+            </a>
+        </div>
+        <div class="controlesCarrusel">
+            <span class="control activo"></span>
+            <span class="control"></span>
+            <span class="control"></span>
+        </div>
+
+    </header>
+
+    <body>
+        <section class="categorias contenedor">
+            <h2>Nuestras Categorías</h2>
+            <div class="gridCategorias">
+                <a href="productos.html?categoria=cervezas" class="categoria">
+                    <img src="build/img/cervezatecate600ml.jpg" alt="Cervezas">
+                    <div class="contenidoCategoria">
+                        <h3>Cervezas</h3>
+                    </div>
+                </a>
+
+                <a href="productos.html?categoria=licores" class="categoria">
+                    <img src="build/img/licoresgeneral.jpg" alt="Licores">
+                    <div class="contenidoCategoria">
+                        <h3>Licores</h3>
+                    </div>
+                </a>
+
+                <a href="productos.html?categoria=botanas" class="categoria">
+                    <img src="build/img/botanasgeneral.jpg" alt="Botanas">
+                    <div class="contenidoCategoria">
+                        <h3>Botanas</h3>
+                    </div>
+                </a>
+
+                <a href="productos.html?categoria=refrescos" class="categoria">
+                    <img src="build/img/refrescosgeneral.jpg" alt="Refrescos">
+                    <div class="contenidoCategoria">
+                        <h3>Refrescos</h3>
+                    </div>
+                </a>
+
+                <a href="productos.html?categoria=hielo" class="categoria">
+                    <img src="build/img/bolsadehielogeneral.jpg" alt="Hielo">
+                    <div class="contenidoCategoria">
+                        <h3>Hielo</h3>
+                    </div>
+                </a>
+
+                <a href="productos.html?categoria=cigarros" class="categoria">
+                    <img src="build/img/cigarrosgeneral.jpg" alt="Cigarros">
+                    <div class="contenidoCategoria">
+                        <h3>Cigarros</h3>
+                    </div>
+                </a>
+            </div>
+        </section>
+        <section class="productos">
+            <div class="contenedor">
+                <h2>Productos Más Vendidos</h2>
+                <div class="contenedorProductos">
+                    <!-- Producto -->
+                    <article class="productCard">
+                        <span class="productCard__badge productCard__badge--popular">
+                            🔥 Popular
+                        </span>
+                        <div class="productCard__image">
+                            <img src="build/img/modeloespecial_individual.jpg" alt="Modelo Especial">
+                        </div>
+                        <div class="productCard__content">
+                            <h3 class="productCard__title">
+                                Modelo Especial
+                            </h3>
+                            <p class="productCard__description">
+                                Botella · 355 ml
+                            </p>
+                            <div class="productCard__footer">
+                                <span class="productCard__price">
+                                    $39
+                                </span>
+                                <button class="productCard__button">
+                                    <i class="bi bi-plus-lg"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Producto -->
+                    <article class="productCard">
+                        <span class="productCard__badge productCard__badge--fria">
+                            🧊 Bien Fría
+                        </span>
+                        <div class="productCard__image">
+                            <img src="build/img/coronaextraindividual.jpg" alt="Corona Extra">
+                        </div>
+                        <div class="productCard__content">
+                            <h3 class="productCard__title">
+                                Corona Extra
+                            </h3>
+                            <p class="productCard__description">
+                                Botella · 355 ml
+                            </p>
+                            <div class="productCard__footer">
+                                <span class="productCard__price">
+                                    $37
+                                </span>
+                                <button class="productCard__button">
+                                    <i class="bi bi-plus-lg"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Producto -->
+                    <article class="productCard">
+                        <div class="productCard__image">
+                            <img src="build/img/tecateoriginal_individual.jpg" alt="Tecate Original">
+                        </div>
+                        <div class="productCard__content">
+                            <h3 class="productCard__title">
+                                Tecate Original
+                            </h3>
+                            <p class="productCard__description">
+                                Botella · 355 ml
+                            </p>
+                            <div class="productCard__footer">
+                                <span class="productCard__price">
+                                    $35
+                                </span>
+                                <button class="productCard__button">
+                                    <i class="bi bi-plus-lg"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Producto -->
+                    <article class="productCard">
+                        <span class="productCard__badge productCard__badge--promo">
+                            2x$60
+                        </span>
+                        <div class="productCard__image">
+                            <img src="build/img/tecatelight_individual.jpg" alt="Tecate Light">
+                        </div>
+                        <div class="productCard__content">
+                            <h3 class="productCard__title">
+                                Tecate Light
+                            </h3>
+                            <p class="productCard__description">
+                                Botella · 355 ml
+                            </p>
+                            <div class="productCard__footer">
+                                <span class="productCard__price">
+                                    $33
+                                </span>
+                                <button class="productCard__button">
+                                    <i class="bi bi-plus-lg"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+                <div class="contenedor">
+                    <div class="tituloProductos">
+                        <div class="botonesSlider">
+                            <button class="anterior">
+                                &#10094;
+                            </button>
+                            <button class="siguiente">
+                                &#10095;
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="porqueNosotros">
+
+            <div class="contenedor">
+                <h2>¿Por qué comprar con nosotros?</h2>
+
+                <div class="ventajas">
+                    <article class="ventaja">
+                        <img src="build/img/deliveryicon.webp" alt="Entrega rápida">
+                        <h3>Entrega Rápida</h3>
+                        <p>
+                            Recibe tu pedido en pocos minutos hasta la puerta de tu casa.
+                        </p>
+                    </article>
+
+                    <article class="ventaja">
+                        <img src="build/img/nievefrio.webp" alt="Cerveza fría">
+                        <h3>Siempre Fría</h3>
+                        <p>
+                            Conservamos la temperatura ideal para que disfrutes cada cerveza.
+                        </p>
+                    </article>
+
+                    <article class="ventaja">
+                        <img src="build/img/paymenticon.webp" alt="Pago seguro">
+                        <h3>Pago Seguro</h3>
+                        <p>
+                            Compra con confianza mediante métodos de pago seguros.
+                        </p>
+                    </article>
+                </div>
+
+            </div>
+        </section>
+
+        <section class="bannerPrincipal">
+            <div class="contenidoBanner contenedor">
+                <div class="textoBanner">
+
+                    <h2>
+                        Siempre hay una cerveza <br>
+                        para cada ocasión.
+                    </h2>
+
+                    <p>
+                        Entregas rápidas • Cerveza helada • Compra en línea
+                    </p>
+
+                    <a href="productos.html" class="botonBanner">
+                        Hacer Pedido
+                    </a>
+
+                </div>
+            </div>
+        </section>
+
+        <section class="productos">
+            <div class="contenedor">
+                <h2>Productos Destacados</h2>
+                <div class="contenedorProductos">
+                    <article class="productCard">
+                        <span class="productCard__badge productCard__badge--popular">
+                            🔥 Recomendado
+                        </span>
+                        <div class="productCard__image">
+                            <img src="build/img/bolsadehieloindividual.jpg" alt="Bolsa de Hielo">
+                        </div>
+
+                        <div class="productCard__content">
+                            <h3 class="productCard__title">
+                                Bolsa de Hielo
+                            </h3>
+                            <p class="productCard__description">
+                                Bolsa · 10 kg
+                            </p>
+                            <div class="productCard__footer">
+                                <span class="productCard__price">
+                                    $39
+                                </span>
+                                <button class="productCard__button">
+                                    <i class="bi bi-plus-lg"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="productCard">
+                        <span class="productCard__badge productCard__badge--nuevo">
+                            Nuevo
+                        </span>
+                        <div class="productCard__image">
+                            <img src="build/img/bolsadecarbonindividual.jpg" alt="Bolsa de Carbón">
+                        </div>
+                        <div class="productCard__content">
+                            <h3 class="productCard__title">
+                                Bolsa de Carbón
+                            </h3>
+                            <p class="productCard__description">
+                                Bolsa · 10 kg
+                            </p>
+                            <div class="productCard__footer">
+                                <span class="productCard__price">
+                                    $99
+                                </span>
+                                <button class="productCard__button">
+                                    <i class="bi bi-plus-lg"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="productCard">
+                        <span class="productCard__badge productCard__badge--promo">
+                            Promo
+                        </span>
+                        <div class="productCard__image">
+                            <img src="build/img/sabrittas170individual.jpg" alt="Sabritas">
+                        </div>
+                        <div class="productCard__content">
+                            <h3 class="productCard__title">
+                                Sabritas Original
+                            </h3>
+                            <p class="productCard__description">
+                                Bolsa · 170 g
+                            </p>
+                            <div class="productCard__footer">
+                                <span class="productCard__price">
+                                    $59
+                                </span>
+                                <button class="productCard__button">
+                                    <i class="bi bi-plus-lg"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="productCard">
+                        <div class="productCard__image">
+                            <img src="build/img/tonayan960mlindividual.jpg" alt="Tonayan">
+                        </div>
+                        <div class="productCard__content">
+                            <h3 class="productCard__title">
+                                Tonayan
+                            </h3>
+                            <p class="productCard__description">
+                                Botella · 960 ml
+                            </p>
+                            <div class="productCard__footer">
+                                <span class="productCard__price">
+                                    $29
+                                </span>
+                                <button class="productCard__button">
+                                    <i class="bi bi-plus-lg"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+                <div class="tituloProductos">
+                    <div class="botonesSlider">
+                        <button class="anterior">
+                            &#10094;
+                        </button>
+                        <button class="siguiente">
+                            &#10095;
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="marcas">
+            <div class="contenedor">
+                <h2>Trabajamos con las mejores marcas</h2>
+                <div class="contenedorMarcas">
+                    <img src="build/img/coronnalogosvg.svg" alt="Corona">
+                    <img src="build/img/modeloespecialsvglogo.svg" alt="Modelo">
+                    <img src="build/img/heinekenlogosvg.svg" alt="Heineken">
+                    <img src="build/img/logotecatesvg.svg" alt="Tecate">
+                    <img src="build/img/indiologosvg.svg" alt="Indio">
+                    <img src="build/img/victorialogosvg.svg" alt="Victoria">
+                </div>
+            </div>
+        </section>
+
+        <section class="ubicacion">
+
+            <div class="contenedor">
+                <h2>Visítanos o pide a domicilio</h2>
+                <div class="contenidoUbicacion">
+                    <div class="informacion">
+                        <div class="dato">
+                            <h3>📍 Dirección</h3>
+                            <p>
+                                Burocratas<br>
+                                Monterrey, Nuevo León
+                            </p>
+                        </div>
+
+                        <div class="dato">
+                            <h3>📞 WhatsApp</h3>
+                            <p>
+                                (81) 1234-5678
+                            </p>
+                        </div>
+
+                        <div class="dato">
+                            <h3>🕒 Horario</h3>
+                            <p>
+                                Lunes a Domingo<br>
+                                9:00 AM - 11:00 PM
+                            </p>
+                        </div>
+
+                        <div class="dato">
+                            <h3>🚚 Cobertura</h3>
+                            <p>
+                                Entregamos en todo Monterrey NL.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="mapa">
+                        <iframe
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3592.365121679417!2d-100.38179878710453!3d25.791525777238682!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8662911694b5ae93%3A0xc4ae7e3656a14892!2sDe%20Los%20Bur%C3%B3cratas%2C%20Fomerrey%2035%2C%2064209%20Monterrey%2C%20N.L.!5e0!3m2!1ses!2smx!4v1783983706580!5m2!1ses!2smx"
+                            width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"
+                            referrerpolicy="strict-origin-when-cross-origin"></iframe>
+                        <a href="#" class="botonMapa">
+                            Cómo llegar
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+    </body>
+    <footer class="footer">
+        <div class="contenedor">
+            <div class="contenidoFooter">
+                <div class="columnaFooter">
+                    <img src="build/img/logoensvg.svg" alt="Logo WEBEERZAMBRANO">
+                    <p>
+                        Tu tienda de conveniencia con entregas rápidas y cerveza siempre helada.
+                    </p>
+                </div>
+
+                <div class="columnaFooter">
+                    <h3>Enlaces</h3>
+                    <a href="showroom.html">Productos</a>
+                    <a href="sobrenosotros.html">Sobre Nosotros</a>
+                    <a href="contacto.html">Contacto</a>
+                </div>
+
+                <div class="columnaFooter">
+                    <h3>Contacto</h3>
+                    <p>📞 (81) 1234-5678</p>
+                    <p>📍 Burocratas, Monterrey, Nuevo León</p>
+                    <p>🕒 9:00 AM - 11:00 PM</p>
+                </div>
+
+                <div class="columnaFooter">
+                    <h3>Síguenos</h3>
+                    <div class="redesSociales">
+                        <a href="#">
+                            <i class="bi bi-facebook"></i>
+                        </a>
+                        <a href="#">
+                            <i class="bi bi-instagram"></i>
+                        </a>
+                        <a href="#">
+                            <i class="bi bi-whatsapp"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="copyright">
+                <p>
+                    © 2026 WEBEERZAMBRANO. Todos los derechos reservados.
+                </p>
+            </div>
+
+        </div>
+
+    </footer>
+    <script src="build/js/app.js"></script>
+</body>
+
+
+</html>

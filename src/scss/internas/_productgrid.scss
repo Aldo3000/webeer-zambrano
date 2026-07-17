@@ -1,0 +1,154 @@
+@use '../base/variables' as v;
+@use 'base/mixins' as m;
+
+.productGrid {
+
+    padding: 4rem 0;
+    background-color: v.$gris50;
+
+    &__header {
+        text-align: center;
+        margin-bottom: 5rem;
+
+        h2 {
+            margin: 0;
+        }
+
+        p {
+            color: v.$gris500;
+            margin-top: 1rem;
+        }
+    }
+
+    &__container {
+        @include m.grid(2, 2rem);
+
+        @include m.tablet {
+            @include m.grid(4, 2rem);
+        }
+    }
+}
+
+.productCard {
+
+    position: relative;
+    background-color: v.$blanco;
+    border-radius: 2rem;
+    padding: 2rem;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    box-shadow: v.$sombraCard;
+    transition:
+        transform v.$transicion,
+        box-shadow v.$transicion;
+
+    &:hover {
+        transform: translateY(-8px);
+        box-shadow: v.$sombraHover;
+
+        .productCard__image img {
+            transform: scale(1.05);
+        }
+
+        .productCard__button {
+            background-color: v.$primario;
+            transform: scale(1.08);
+        }
+    }
+
+    &__badge {
+        position: absolute;
+        top: 1.5rem;
+        right: 1.5rem;
+        padding: .5rem 1.2rem;
+        border-radius: v.$radiusPill;
+        font-size: 1.2rem;
+        font-weight: v.$semiBold;
+        color: v.$blanco;
+        z-index: 10;
+
+        &--popular {
+            background: #ff5b3a;
+        }
+
+        &--promo {
+            background: v.$success;
+        }
+
+        &--fria {
+            background: v.$info;
+        }
+
+        &--nuevo {
+            background: v.$negro;
+        }
+    }
+
+    &__image {
+        height: 20rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 2rem;
+
+        img {
+            width: 100%;
+            max-width: 17rem;
+            max-height: 18rem;
+            object-fit: contain;
+            transition: transform v.$transicionLenta;
+        }
+    }
+
+    &__content {
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+    }
+
+    &__title {
+        font-size: 2rem;
+        font-weight: v.$semiBold;
+        color: v.$negro;
+        margin: 0;
+    }
+
+    &__description {
+        margin-top: .7rem;
+        color: v.$gris500;
+        font-size: 1.4rem;
+    }
+
+    &__footer {
+        margin-top: auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-top: 2rem;
+    }
+
+    &__price {
+        font-size: 2.5rem;
+        font-weight: v.$bold;
+        color: v.$negro;
+    }
+
+    &__button {
+        width: 4.8rem;
+        height: 4.8rem;
+        border: none;
+        border-radius: 50%;
+        background-color: v.$negro;
+        color: v.$blanco;
+        cursor: pointer;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        transition: all v.$transicion;
+
+        i {
+            font-size: 1.7rem;
+        }
+    }
+}

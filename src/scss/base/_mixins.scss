@@ -1,0 +1,66 @@
+@use 'variables' as v;
+
+/* ==========================================
+   MEDIA QUERIES
+   ========================================== */
+
+/**
+ * Dispositivos móviles grandes
+ * Ejemplo:
+ * @include m.telefono {
+ *     ...
+ * }
+ */
+@mixin telefono {
+    @media (min-width: v.$telefono) {
+        @content;
+    }
+}
+
+/**
+ * Tablets y dispositivos medianos
+ * Ejemplo:
+ * @include m.tablet {
+ *     ...
+ * }
+ */
+@mixin tablet {
+    @media (min-width: v.$tablet) {
+        @content;
+    }
+}
+
+/**
+ * Computadoras de escritorio
+ * Ejemplo:
+ * @include m.desktop {
+ *     ...
+ * }
+ */
+@mixin desktop {
+    @media (min-width: v.$desktop) {
+        @content;
+    }
+}
+
+
+/* ==========================================
+   GRID
+   ========================================== */
+
+/**
+ * Crea un grid reutilizable.
+ *
+ * @param {Number} $columnas  Número de columnas.
+ * @param {Size}   $espaciado Espacio entre columnas y filas.
+ *
+ * Ejemplo:
+ *
+ * @include m.grid(3, 2rem);
+ *
+ */
+@mixin grid($columnas, $espaciado) {
+    display: grid;
+    grid-template-columns: repeat($columnas, 1fr);
+    gap: $espaciado;
+}

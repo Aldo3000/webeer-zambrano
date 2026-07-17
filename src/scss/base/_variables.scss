@@ -1,0 +1,149 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Poppins:wght@300;400;500;600;700&display=swap');
+
+// ==============================
+// TIPOGRAFÍAS
+// ==============================
+
+$fuente_heading: 'Bebas Neue', sans-serif;
+$fuente_principal: 'Poppins', sans-serif;
+
+
+// ==============================
+// MEDIA QUERIES
+// ==============================
+
+$telefono: 480px;
+$tablet: 768px;
+$laptop: 1024px;
+$desktop: 1280px;
+$desktopXL: 1440px;
+
+
+// ==============================
+// COLORES PRINCIPALES
+// ==============================
+
+// Color de marca
+$primario: #EB8301;
+
+// Hover
+$primarioHover: #D77400;
+
+// Variante clara
+$primarioClaro: #F89B09;
+
+// Fondo principal
+$fondo: #111111;
+
+// Fondo Navbar
+$fondoNavbar: #161616;
+
+// Tarjetas
+$fondoCard: #1C1C1C;
+
+// Bordes
+$borde: #2D2D2D;
+
+
+// ==============================
+// COLORES DE TEXTO
+// ==============================
+
+$blanco: #FFFFFF;
+
+$texto: #FFFFFF;
+
+$textoSecundario: #CFCFCF;
+
+$textoGris: #9A9A9A;
+
+
+// ==============================
+// COLORES DE ESTADO
+// ==============================
+
+$success: #2EAF58;
+
+$error: #D64545;
+
+$warning: #FFC107;
+
+$info: #2196F3;
+
+$negro: #000000;
+
+
+// ==============================
+// ESCALA DE GRISES
+// ==============================
+
+$gris50: #F5F5F5;
+$gris100: #E5E5E5;
+$gris200: #D4D4D4;
+$gris300: #BDBDBD;
+$gris400: #9A9A9A;
+$gris500: #737373;
+$gris600: #525252;
+$gris700: #404040;
+$gris800: #262626;
+$gris900: #171717;
+
+
+// ==============================
+// ESPACIADO
+// ==============================
+
+$separacionXS: .5rem;
+$separacionS: 1rem;
+$separacionM: 2rem;
+$separacionL: 3rem;
+$separacionXL: 5rem;
+
+
+// ==============================
+// BORDER RADIUS
+// ==============================
+
+$radiusXS: .25rem;
+$radiusS: .5rem;
+$radiusM: .75rem;
+$radiusL: 1rem;
+$radiusXL: 1.5rem;
+$radiusPill: 999px;
+
+
+// ==============================
+// SOMBRAS
+// ==============================
+
+$sombraCard: 0 4px 12px rgba(0,0,0,.25);
+
+$sombraHover: 0 8px 25px rgba(0,0,0,.35);
+
+$sombraNavbar: 0 2px 8px rgba(0,0,0,.20);
+
+
+// ==============================
+// TRANSICIONES
+// ==============================
+
+$transicionRapida: .2s ease;
+
+$transicion: .3s ease;
+
+$transicionLenta: .5s ease;
+
+
+// ==============================
+// PESOS DE FUENTE
+// ==============================
+
+$light: 300;
+
+$regular: 400;
+
+$medium: 500;
+
+$semiBold: 600;
+
+$bold: 700;

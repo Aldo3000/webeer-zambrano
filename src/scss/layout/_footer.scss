@@ -1,0 +1,82 @@
+@use '../base/variables' as v;
+@use '../base/mixins' as m;
+
+.footer {
+
+    background-color: v.$fondoNavbar;
+    padding-top: 6rem;
+
+    .contenidoFooter {
+        display: flex;
+        flex-direction: column;
+        gap: 4rem;
+
+        @include m.tablet {
+            @include m.grid(4, 4rem);
+        }
+    }
+
+    .columnaFooter {
+        text-align: center;
+
+        @include m.tablet {
+            text-align: left;
+        }
+
+        img {
+            width: 22rem;
+            margin-bottom: 2rem;
+        }
+
+        h3 {
+            color: v.$primario;
+            margin-bottom: 2rem;
+        }
+
+        p {
+            color: v.$textoSecundario;
+            line-height: 2;
+        }
+
+        a {
+            display: block;
+            color: v.$textoSecundario;
+            text-decoration: none;
+            margin-bottom: 1rem;
+            transition: .3s;
+
+            &:hover {
+                color: v.$primario;
+            }
+        }
+    }
+
+    .copyright {
+        border-top: 1px solid v.$borde;
+        margin-top: 5rem;
+        padding: 2rem 0;
+        text-align: center;
+
+        p {
+            color: v.$textoGris;
+            margin: 0;
+            font-size: 1.5rem;
+        }
+    }
+
+    .redesSociales {
+        display: flex;
+        gap: 2rem;
+        justify-content: center;
+
+        a {
+            font-size: 3rem;
+            color: v.$textoSecundario;
+            transition: .3s;
+            &:hover {
+                color: v.$primario;
+                transform: translateY(-3px);
+            }
+        }
+    }
+}

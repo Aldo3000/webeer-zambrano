@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Productos | WEBEERZAMBRANO</title>
+    <link rel="stylesheet" href="build/css/app.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+</head>
+
+<body>
+    <header class="headerProductos">
+        <div class="barraNav">
+            <a href="index.html" class="logo_barraNav">
+                <img src="build/img/logoensvg.svg" alt="Logo WEBEERZAMBRANO">
+            </a>
+
+            <nav class="navofbarraNav">
+                <a class="navegacion__boton" href="showroom.html">
+                    Productos
+                </a>
+                <a class="navegacion__boton" href="sobrenosotros.html">
+                    Sobre Nosotros
+                </a>
+                <a class="navegacion__boton" href="contacto.html">
+                    Contacto
+                </a>
+            </nav>
+        </div>
+
+        <div class="contenidoHeaderProductos">
+            <h1>
+                Nuestros Productos
+            </h1>
+
+            <p>
+                Encuentra cerveza, botanas, refrescos y mucho más.
+            </p>
+        </div>
+    </header>
+    <section class="searchBar">
+        <div class="contenedor">
+            <form class="searchBar__form">
+                <i class="bi bi-search searchBar__icon"></i>
+                <input type="search" class="searchBar__input" placeholder="Buscar cerveza, botanas, refrescos...">
+            </form>
+        </div>
+    </section>
+    <section class="categoriasProductos">
+        <div class="contenedor">
+            <div class="tituloCategorias">
+                <h2>Categorías</h2>
+                <div class="botonesCategorias">
+                    <button class="anteriorCategoria">
+                        ←
+                    </button>
+                    <button class="siguienteCategoria">
+                        →
+                    </button>
+                </div>
+            </div>
+
+            <div class="contenedorCategorias">
+                <button class="categoria activa">
+                    <img src="build/img/todoproductoscategorias.jpg" alt="Todo">
+                    <span>Todo</span>
+                </button>
+                <button class="categoria">
+                    <img src="build/img/cervezacategoriasproductos.jpg" alt="Cervezas">
+                    <span>Cervezas</span>
+                </button>
+                <button class="categoria">
+                    <img src="build/img/botanascategoriasproductos.jpg" alt="Botanas">
+                    <span>Botanas</span>
+                </button>
+                <button class="categoria">
+                    <img src="build/img/refrescoscategoriasproductos.jpg" alt="Refrescos">
+                    <span>Refrescos</span>
+                </button>
+                <button class="categoria">
+                    <img src="build/img/licorescategoriaproductos.jpg" alt="Licores">
+                    <span>Licores</span>
+                </button>
+                <button class="categoria">
+                    <img src="build/img/hielocategoriaproductos.jpg" alt="Hielo">
+                    <span>Hielo</span>
+                </button>
+                <button class="categoria">
+                    <img src="build/img/convenienciacategoriasproductos.jpg" alt="Conveniencia">
+                    <span>Conveniencia</span>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <section class="productGrid">
+        <div class="contenedor">
+            <!--<div class="productGrid__header">
+                <h2>Nuestros Productos</h2>
+                <p>Encuentra cerveza, botanas, refrescos y mucho más.</p>
+                Tal vez aqui modifiquemos este apartado para poner otra cosa
+            </div> -->
+            <div class="productGrid__container">
+                <!-- Producto -->
+                <article class="productCard">
+                    <span class="productCard__badge productCard__badge--popular">
+                        🔥 Popular
+                    </span>
+                    <div class="productCard__image">
+                        <img src="build/img/coronaextraindividualblanco.jpg" alt="Corona Extra">
+                    </div>
+                    <div class="productCard__content">
+                        <h3 class="productCard__title">
+                            Corona Extra
+                        </h3>
+                        <p class="productCard__description">
+                            Botella Vidrio · 355 ml
+                        </p>
+                        <div class="productCard__footer">
+                            <span class="productCard__price">
+                                $34.00
+                            </span>
+                            <button class="productCard__button">
+                                <i class="bi bi-plus-lg"></i>
+                            </button>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="productCard">
+                    <span class="productCard__badge productCard__badge--fria">
+                        🧊 Helado
+                    </span>
+                    <div class="productCard__image">
+                        <img src="build/img/tecateoriginal_individual_blanco.jpg" alt="Corona Extra">
+                    </div>
+                    <div class="productCard__content">
+                        <h3 class="productCard__title">
+                            Tecate Original
+                        </h3>
+                        <p class="productCard__description">
+                            Botella Vidrio · 355 ml
+                        </p>
+                        <div class="productCard__footer">
+                            <span class="productCard__price">
+                                $29.00
+                            </span>
+                            <button class="productCard__button">
+                                <i class="bi bi-plus-lg"></i>
+                            </button>
+                        </div>
+                    </div>
+                </article>
+                <article class="productCard">
+                    <div class="productCard__image">
+                        <img src="build/img/jhonniewalkerblancoindividual.jpg" alt="Corona Extra">
+                    </div>
+                    <div class="productCard__content">
+                        <h3 class="productCard__title">
+                            Jhonnie Walker Red Label
+                        </h3>
+                        <p class="productCard__description">
+                            Botella Vidrio · 965 ml
+                        </p>
+                        <div class="productCard__footer">
+                            <span class="productCard__price">
+                                $299.00
+                            </span>
+                            <button class="productCard__button">
+                                <i class="bi bi-plus-lg"></i>
+                            </button>
+                        </div>
+                    </div>
+                </article>
+                <article class="productCard">
+                    <div class="productCard__image">
+                        <img src="build/img/cocacolaindividualblanco.jpg" alt="Corona Extra">
+                    </div>
+                    <div class="productCard__content">
+                        <h3 class="productCard__title">
+                            Coca Cola Regular
+                        </h3>
+                        <p class="productCard__description">
+                            Botella Plastico · 2.5 Litros
+                        </p>
+                        <div class="productCard__footer">
+                            <span class="productCard__price">
+                                $49.00
+                            </span>
+                            <button class="productCard__button">
+                                <i class="bi bi-plus-lg"></i>
+                            </button>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="contenedor">
+            <div class="contenidoFooter">
+                <div class="columnaFooter">
+                    <img src="build/img/logoensvg.svg" alt="Logo WEBEERZAMBRANO">
+                    <p>
+                        Tu tienda de conveniencia con entregas rápidas y cerveza siempre helada.
+                    </p>
+                </div>
+
+                <div class="columnaFooter">
+                    <h3>Enlaces</h3>
+                    <a href="showroom.html">Productos</a>
+                    <a href="sobrenosotros.html">Sobre Nosotros</a>
+                    <a href="contacto.html">Contacto</a>
+                </div>
+
+                <div class="columnaFooter">
+                    <h3>Contacto</h3>
+                    <p>📞 (81) 1234-5678</p>
+                    <p>📍 Burocratas, Monterrey, Nuevo León</p>
+                    <p>🕒 9:00 AM - 11:00 PM</p>
+                </div>
+
+                <div class="columnaFooter">
+                    <h3>Síguenos</h3>
+                    <div class="redesSociales">
+                        <a href="#">
+                            <i class="bi bi-facebook"></i>
+                        </a>
+                        <a href="#">
+                            <i class="bi bi-instagram"></i>
+                        </a>
+                        <a href="#">
+                            <i class="bi bi-whatsapp"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="copyright">
+                <p>
+                    © 2026 WEBEERZAMBRANO. Todos los derechos reservados.
+                </p>
+            </div>
+
+        </div>
+
+    </footer>
+    <script src="build/js/app.js"></script>
+</body>
+
+</html>

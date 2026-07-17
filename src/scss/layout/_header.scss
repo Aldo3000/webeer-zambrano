@@ -1,0 +1,197 @@
+@use '../base/variables' as v;
+@use 'base/mixins' as m;
+
+.header {
+    position: relative;
+    width: 100%;
+    min-height: 90rem;
+    overflow: hidden;
+
+    @include m.tablet {
+        min-height: 110rem;
+    }
+
+    // ===========================
+    // Barra de navegación
+    // ===========================
+    .barraNav {
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 100%;
+        z-index: 100;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-direction: column;
+        min-height: 10rem;
+        background: rgba(0, 0, 0, .10);
+        backdrop-filter: blur(1px);
+
+        @include m.tablet {
+            flex-direction: row;
+            min-height: 12rem;
+            padding: 0 10rem 0rem 5rem;
+        }
+
+        img {
+
+            height: auto;
+            width: 35rem;
+            display: block;
+            margin-top: -3rem;
+            filter: drop-shadow(0 4px 12px rgba(0, 0, 0, .4));
+
+            @include m.tablet {
+                margin-top: 0;
+            }
+        }
+
+        .navofbarraNav {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: -7rem;
+
+            @include m.tablet {
+                flex-direction: row;
+                gap: 2.5rem;
+                margin-top: 0;
+            }
+
+            .navegacion__boton {
+                color: v.$blanco;
+                text-decoration: none;
+                font-family: v.$fuente_principal;
+                font-weight: v.$medium;
+                text-shadow: 0 2px 6px rgba(0, 0, 0, .35);
+                transition: .3s;
+                font-size: 2.2rem;
+                text-shadow: 0 2px 8px rgba(0, 0, 0, .7);
+
+
+                &:hover {
+                    color: v.$primario;
+                }
+            }
+        }
+    }
+
+    // ===========================
+    // Carrusel
+    // ===========================
+
+    .carrusel {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+
+        &::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to bottom,
+                    rgba(0, 0, 0, .65),
+                    rgba(0, 0, 0, .35),
+                    rgba(0, 0, 0, .65));
+            z-index: 2;
+        }
+
+        .slide {
+            position: absolute;
+            inset: 0;
+            opacity: 0;
+            transition: opacity .8s ease;
+
+            &.activo {
+                opacity: 1;
+            }
+
+            img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                //  display: block;
+            }
+        }
+    }
+
+    .controlesCarrusel {
+        position: absolute;
+        bottom: 4rem;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        gap: 1rem;
+        z-index: 150;
+        
+
+        .control {
+            width: 1.4rem;
+            height: 1.4rem;
+            border: 2px solid v.$blanco;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: .3s;
+
+            &.activo {
+                background-color: v.$blanco;
+
+            }
+        }
+    }
+
+    .contenidoHeader {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 150;
+        width: 90%;
+        max-width: 80rem;
+        text-align: center;
+
+        h1 {
+            color: v.$blanco;
+            font-family: v.$fuente_heading;
+            font-size: 4.5rem;
+            letter-spacing: .2rem;
+            margin: 0;
+            text-shadow: 0 .4rem 1rem rgba(0, 0, 0, .6);
+            @include m.tablet {
+                font-size: 8rem;
+            }
+        }
+
+        p {
+            color: v.$blanco;
+            font-family: v.$fuente_principal;
+            font-size: 2rem;
+            margin: 2rem 0 4rem 0;
+            text-shadow: 0 .3rem .8rem rgba(0, 0, 0, .6);
+            @include m.tablet {
+                font-size: 2.8rem;
+            }
+        }
+
+        .botonPedido {
+            display: inline-block;
+            background-color: v.$primario;
+            color: v.$blanco;
+            text-decoration: none;
+            padding: 1.6rem 3.5rem;
+            border-radius: .8rem;
+            font-weight: v.$bold;
+            font-size: 2.4rem;
+            transition: .3s;
+            box-shadow: 0 .6rem 2rem rgba(0, 0, 0, .45);
+
+            &:hover {
+                background-color: v.$primarioHover;
+            }
+        }
+
+    }
+}
