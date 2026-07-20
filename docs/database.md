@@ -80,7 +80,43 @@ Guarda los mensajes enviados desde el formulario de contacto.
 - El juego de caracteres será utf8mb4.
 - Se utilizará created_at y updated_at para registrar fechas cuando aplique.
 
-## Tablas
+## Tabla: roles
+
+### Descripción
+
+Almacena los diferentes tipos de usuario permitidos dentro del sistema.
+
+Actualmente existen dos roles:
+
+- Administrador
+- Cliente
+
+### Responsabilidad
+
+Determinar los permisos que tendrá un usuario dentro del sistema.
+
+### Relaciones
+
+Un rol puede pertenecer a muchos usuarios.
+
+### Registros iniciales
+
+| id | nombre |
+|----|---------|
+|1|Administrador|
+|2|Cliente|
+
+### Campos
+
+| Campo  | Tipo    | Longitud | Nulo | PK | FK | Descripción                 |
+| ------ | ------- | -------- | ---- | -- | -- | --------------------------- |
+| id     | INT     | -        | No   | Sí | No | Identificador único del rol |
+| nombre | VARCHAR | 50       | No   | No | No | Nombre del rol              |
+
+### Restricciones
+
+- El nombre del rol debe ser único.
+- No se podrán eliminar roles que estén asignados a usuarios.
 
 
 ## Decisiones de Diseño

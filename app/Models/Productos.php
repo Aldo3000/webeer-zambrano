@@ -1,0 +1,64 @@
+<?php
+
+class Producto extends ActiveRecord
+{
+
+    protected static $tabla = 'productos';
+
+    protected static $columnasDB = [
+        'categoria_id',
+        'marca_id',
+        'sku',
+        'nombre',
+        'descripcion',
+        'precio_original',
+        'precio_actual',
+        'stock',
+        'imagen'
+    ];
+
+    public $id;
+    public $categoria_id;
+    public $marca_id;
+    public $sku;
+    public $nombre;
+    public $descripcion;
+    public $precio_original;
+    public $precio_actual;
+    public $stock;
+    public $imagen;
+    public $created_at;
+    public $updated_at;
+
+
+    public function __construct()
+    {
+        $this->categoria_id = '';
+        $this->marca_id = '';
+        $this->sku = '';
+        $this->nombre = '';
+        $this->descripcion = '';
+        $this->precio_original = 0;
+        $this->precio_actual = 0;
+        $this->stock = 0;
+        $this->imagen = '';
+    }
+
+    public function validar()
+    {
+        static::$errores = [];
+        if (!$this->nombre) {
+            static::$errores[] = 'El nombre es obligatorio.';
+        }
+        if (!$this->sku) {
+            static::$errores[] = 'El SKU es obligatorio.';
+        }
+        if ($this->precio_actual <= 0) {
+            static::$errores[] = 'El precio debe ser mayor a cero.';
+        }
+        if ($this->stock < 0) {
+            static::$errores[] = 'El stock no puede ser negativo.';
+        }
+        return static::$errores;
+    }
+}

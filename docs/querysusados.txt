@@ -1,0 +1,310 @@
+roles:
+CREATE TABLE roles (
+    id TINYINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+
+    nombre VARCHAR(50) NOT NULL,
+
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+        ON UPDATE CURRENT_TIMESTAMP,
+
+    CONSTRAINT uq_roles_nombre UNIQUE (nombre)
+);
+
+
+CREATE TABLE usuarios (
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+
+    rol_id TINYINT UNSIGNED NOT NULL,
+
+    nombre VARCHAR(100) NOT NULL,
+    apellido VARCHAR(100) NOT NULL,
+
+    correo VARCHAR(150) NOT NULL,
+    telefono VARCHAR(15) NOT NULL,
+
+    password_hash VARCHAR(255) NOT NULL,
+
+    calle VARCHAR(150),
+    numero VARCHAR(20),
+    colonia VARCHAR(100),
+    municipio VARCHAR(100) DEFAULT 'Monterrey',
+    estado VARCHAR(100) DEFAULT 'Nuevo León',
+    codigo_postal VARCHAR(10),
+
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+        ON UPDATE CURRENT_TIMESTAMP,
+
+    CONSTRAINT uq_usuarios_correo UNIQUE (correo),
+
+    CONSTRAINT fk_usuarios_roles
+        FOREIGN KEY (rol_id)
+        REFERENCES roles(id)
+        ON UPDATE CASCADE
+        ON DELETE RESTRICT
+);
+
+CREATE TABLE categorias (
+    id TINYINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+
+    nombre VARCHAR(100) NOT NULL,
+    descripcion VARCHAR(255),
+
+    CONSTRAINT uq_categorias_nombre UNIQUE (nombre)
+);
+
+CREATE TABLE productos (
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+
+    categoria_id TINYINT UNSIGNED,
+    marca_id TINYINT UNSIGNED,
+
+    sku VARCHAR(30) NOT NULL,
+
+    nombre VARCHAR(150) NOT NULL,
+    descripcion TEXT,
+
+    precio_original DECIMAL(10,2) NOT NULL,
+    precio_actual DECIMAL(10,2) NOT NULL,
+
+    stock INT UNSIGNED NOT NULL DEFAULT 0,
+
+    imagen_principal VARCHAR(255),
+
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+        ON UPDATE CURRENT_TIMESTAMP,
+
+    CONSTRAINT uq_productos_sku
+        UNIQUE (sku),
+
+    CONSTRAINT fk_productos_categoria
+        FOREIGN KEY (categoria_id)
+        REFERENCES categorias(id)
+        ON UPDATE CASCADE
+        ON DELETE SET NULL,
+
+    CONSTRAINT fk_productos_marca
+        FOREIGN KEY (marca_id)
+        REFERENCES marcas(id)
+        ON UPDATE CASCADE
+        ON DELETE RESTRICT,
+
+    CONSTRAINT chk_precio_original
+        CHECK (precio_original >= 0),
+
+    CONSTRAINT chk_precio_actual
+        CHECK (precio_actual >= 0),
+
+    CONSTRAINT chk_stock
+        CHECK (stock >= 0)
+);
+
+CREATE TABLE marcas (
+    id TINYINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+
+    nombre VARCHAR(100) NOT NULL,
+
+    CONSTRAINT uq_marcas_nombre UNIQUE (nombre)
+);
+
+CREATE TABLE estados_pedido (
+    id TINYINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+
+    nombre VARCHAR(50) NOT NULL,
+
+    CONSTRAINT uq_estados_pedido_nombre
+        UNIQUE (nombre)
+);
+
+INSERT INTO estados_pedido (nombre)
+VALUES
+('Pendiente'),
+('Pagado'),
+('Preparando'),
+('Enviado'),
+('Entregado'),
+('Cancelado');
+
+CREATE TABLE metodos_pago (
+    id TINYINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+
+    nombre VARCHAR(50) NOT NULL,
+
+    CONSTRAINT uq_metodos_pago_nombre
+        UNIQUE (nombre)
+);
+
+INSERT INTO metodos_pago (nombre)
+VALUES
+('Contra entrega'),
+('Transferencia'),
+('Pago Online');
+
+CREATE TABLE estados_pago (
+    id TINYINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+
+    nombre VARCHAR(50) NOT NULL,
+
+    CONSTRAINT uq_estados_pago_nombre
+        UNIQUE (nombre)
+);
+
+INSERT INTO estados_pago (nombre)
+VALUES
+('Pendiente'),
+('Pagado'),
+('Fallido'),
+('Reembolsado');
+
+CREATE TABLE pedidos (
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+
+    numero_pedido VARCHAR(30) NOT NULL,
+
+    usuario_id INT UNSIGNED NULL,
+
+    estado_pedido_id TINYINT UNSIGNED NOT NULL,
+    estado_pago_id TINYINT UNSIGNED NOT NULL,
+    metodo_pago_id TINYINT UNSIGNED NOT NULL,
+
+    nombre VARCHAR(100) NOT NULL,
+    apellido VARCHAR(100) NOT NULL,
+    correo VARCHAR(150) NOT NULL,
+    telefono VARCHAR(20) NOT NULL,
+
+    calle VARCHAR(150) NOT NULL,
+    numero VARCHAR(20) NOT NULL,
+    colonia VARCHAR(100) NOT NULL,
+    codigo_postal VARCHAR(10) NOT NULL,
+
+    subtotal DECIMAL(10,2) NOT NULL,
+    total DECIMAL(10,2) NOT NULL,
+
+    referencia_pago VARCHAR(255),
+    notas TEXT,
+
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+        ON UPDATE CURRENT_TIMESTAMP,
+
+    CONSTRAINT uq_pedidos_numero
+        UNIQUE (numero_pedido),
+
+    CONSTRAINT fk_pedidos_usuario
+        FOREIGN KEY (usuario_id)
+        REFERENCES usuarios(id)
+        ON UPDATE CASCADE
+        ON DELETE SET NULL,
+
+    CONSTRAINT fk_pedidos_estado_pedido
+        FOREIGN KEY (estado_pedido_id)
+        REFERENCES estados_pedido(id)
+        ON UPDATE CASCADE
+        ON DELETE RESTRICT,
+
+    CONSTRAINT fk_pedidos_estado_pago
+        FOREIGN KEY (estado_pago_id)
+        REFERENCES estados_pago(id)
+        ON UPDATE CASCADE
+        ON DELETE RESTRICT,
+
+    CONSTRAINT fk_pedidos_metodo_pago
+        FOREIGN KEY (metodo_pago_id)
+        REFERENCES metodos_pago(id)
+        ON UPDATE CASCADE
+        ON DELETE RESTRICT,
+
+    CONSTRAINT chk_subtotal
+        CHECK (subtotal >= 0),
+
+    CONSTRAINT chk_total
+        CHECK (total >= 0)
+);
+
+CREATE TABLE detalle_pedido (
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+
+    pedido_id INT UNSIGNED NOT NULL,
+    producto_id INT UNSIGNED NOT NULL,
+
+    sku VARCHAR(30) NOT NULL,
+    nombre_producto VARCHAR(150) NOT NULL,
+
+    cantidad INT UNSIGNED NOT NULL,
+
+    precio_unitario DECIMAL(10,2) NOT NULL,
+    subtotal DECIMAL(10,2) NOT NULL,
+
+    CONSTRAINT fk_detalle_pedido
+        FOREIGN KEY (pedido_id)
+        REFERENCES pedidos(id)
+        ON UPDATE CASCADE
+        ON DELETE CASCADE,
+
+    CONSTRAINT fk_detalle_producto
+        FOREIGN KEY (producto_id)
+        REFERENCES productos(id)
+        ON UPDATE CASCADE
+        ON DELETE RESTRICT,
+
+    CONSTRAINT chk_detalle_cantidad
+        CHECK (cantidad > 0),
+
+    CONSTRAINT chk_detalle_precio
+        CHECK (precio_unitario >= 0),
+
+    CONSTRAINT chk_detalle_subtotal
+        CHECK (subtotal >= 0)
+);
+
+
+CREATE TABLE contacto (
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+
+    nombre VARCHAR(100) NOT NULL,
+    correo VARCHAR(150) NOT NULL,
+    telefono VARCHAR(20) NOT NULL,
+    asunto VARCHAR(150) NOT NULL,
+    mensaje TEXT NOT NULL,
+
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+
+
+
+modelo conceptual de la DB:
+roles
+        │
+        ▼
+usuarios
+
+categorias
+        │
+        ▼
+productos
+        ▲
+        │
+marcas
+
+estados_pedido
+estados_pago
+metodos_pago
+        │
+        ▼
+pedidos
+        │
+        ▼
+detalle_pedido
+
+contacto
+
+
+| Acción               | ¿Qué hace?                                                             | ¿Dónde lo usamos?                                             |
+| -------------------- | ---------------------------------------------------------------------- | ------------------------------------------------------------- |
+| `ON UPDATE CASCADE`  | Si cambia el ID del padre, actualiza las llaves foráneas relacionadas. | En todas nuestras relaciones.                                 |
+| `ON DELETE CASCADE`  | Si eliminas el padre, elimina automáticamente los hijos.               | `pedidos → detalle_pedido`.                                   |
+| `ON DELETE RESTRICT` | Impide eliminar el padre mientras existan registros relacionados.      | `productos`, `categorias`, `marcas`, `estados`, etc.          |
+| `ON DELETE SET NULL` | Si eliminas el padre, coloca `NULL` en la llave foránea del hijo.      | Lo usamos en `productos.categoria_id` y `pedidos.usuario_id`. |
