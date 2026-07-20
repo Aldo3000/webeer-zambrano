@@ -15,10 +15,10 @@ class ActiveRecord
     public function guardar()
     {
         if ($this->id) {
-            // Actualizar
-        } else {
-            // Crear
+            return $this->actualizar();
         }
+
+        return $this->crear();
     }
 
     public static function getErrores()
@@ -74,5 +74,14 @@ class ActiveRecord
         $resultado = static::$db->query($query);
 
         return $resultado;
+    }
+
+    public function sincronizar($args = [])
+    {
+        foreach ($args as $key => $value) {
+            if (property_exists($this, $key) && !is_null($value)) {
+                $this->$key = $value;
+            }
+        }
     }
 }
