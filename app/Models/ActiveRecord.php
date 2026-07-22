@@ -76,6 +76,15 @@ class ActiveRecord
         return $resultado;
     }
 
+    /**
+     * Sincroniza los datos recibidos (por ejemplo, desde un formulario)
+     * con las propiedades del objeto actual.
+     *
+     * Recorre un arreglo de datos y actualiza únicamente las propiedades
+     * que existen en el modelo y cuyo valor no sea null. Esto permite
+     * reutilizar el mismo objeto al editar registros sin reemplazar
+     * información innecesariamente.
+     */
     public function sincronizar($args = [])
     {
         foreach ($args as $key => $value) {
@@ -83,5 +92,128 @@ class ActiveRecord
                 $this->$key = $value;
             }
         }
+    }
+
+    public function actualizar()
+    {
+        // Obtener los atributos sanitizados
+        $atributos = $this->sanitizarAtributos();
+
+        // Crear un arreglo con cada columna y su valor
+        $valores = [];
+
+        foreach ($atributos as $key => $value) {
+            $valores[] = "{$key}='{$value}'";
+        }
+
+        // Construir la consulta SQL
+        $query = "UPDATE " . static::$tabla . " SET ";
+        $query .= implode(', ', $valores);
+        $query .= " WHERE id = '" . static::$db->escape_string($this->id) . "' LIMIT 1";
+
+        // Ejecutar la consulta
+        $resultado = static::$db->query($query);
+
+        return $resultado;
+    }
+
+    public static function find($id)
+    {
+        // Sanitizar el ID recibido
+        $id = static::$db->escape_string($id);
+
+        // Construir la consulta
+        $query = "SELECT * FROM " . static::$tabla;
+        $query .= " WHERE id = {$id}";
+        $query .= " LIMIT 1";
+
+        // Ejecutar la consulta
+        $resultado = static::$db->query($query);
+
+        // Obtener el registro
+        $registro = $resultado->fetch_assoc();
+
+        // Si no existe el registro
+        if (!$registro) {
+            return null;
+        }
+
+        // Convertir el registro en un objeto
+        return static::crearObjeto($registro);
+    }
+
+    protected static function crearObjeto($registro)
+    {
+        // Crear una nueva instancia del modelo
+        $objeto = new static;
+
+        // Asignar cada valor a su propiedad correspondiente
+        foreach ($registro as $key => $value) {
+
+            if (property_exists($objeto, $key)) {
+                $objeto->$key = $value;
+            }
+        }
+
+        return $objeto;
+    }
+
+    public static function all()
+    {
+        // Construir la consulta
+        $query = "SELECT * FROM " . static::$tabla;
+
+        // Ejecutar la consulta
+        $resultado = static::$db->query($query);
+
+        // Arreglo donde se almacenarán los objetos
+        $objetos = [];
+
+        // Recorrer todos los registros obtenidos
+        while ($registro = $resultado->fetch_assoc()) {
+            $objetos[] = static::crearObjeto($registro);
+        }
+
+        // Liberar memoria del resultado
+        $resultado->free();
+
+        // Regresar el arreglo de objetos
+        return $objetos;
+    }
+
+    public function delete()
+    {
+        // Sanitizar el ID
+        $id = static::$db->escape_string($this->id);
+
+        // Construir la consulta SQL
+        $query = "DELETE FROM " . static::$tabla;
+        $query .= " WHERE id = '{$id}'";
+        $query .= " LIMIT 1";
+
+        // Ejecutar la consulta
+        $resultado = static::$db->query($query);
+
+        return $resultado;
+    }
+
+    public static function consultaSQL($query)
+    {
+        // Ejecutar la consulta
+        $resultado = static::$db->query($query);
+
+        // Arreglo donde se almacenarán los objetos
+        $objetos = [];
+
+        // Recorrer cada registro obtenido
+        while ($registro = $resultado->fetch_assoc()) {
+            $objetos[] = static::crearObjeto($registro);
+        }
+
+        // Liberar memoria
+        $resultado->free();
+
+        // Regresar los objetos
+        return $objetos;
     }
 }
