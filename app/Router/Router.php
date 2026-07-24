@@ -74,4 +74,23 @@ class Router
             echo "Página no encontrada (404)";
         }
     }
+
+    /**
+     * Renderiza una vista y le envía los datos necesarios.
+     *
+     * @param string $view Nombre de la vista.
+     * @param array $datos Información que recibirá la vista.
+     */
+    public function render($view, $datos = [])
+    {
+        // Extraer el arreglo para convertir
+        // cada índice en una variable.
+        extract($datos);
+
+        // Incluir el archivo de la vista.
+        include __DIR__ . '/../Views/' . $view . '.php';
+
+        // Carga la vista.
+        include $archivoVista;
+    }
 }
