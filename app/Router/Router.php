@@ -76,21 +76,30 @@ class Router
     }
 
     /**
-     * Renderiza una vista y le envía los datos necesarios.
+     * Renderiza una vista de la aplicación.
      *
-     * @param string $view Nombre de la vista.
-     * @param array $datos Información que recibirá la vista.
+     * @param string $view Ruta de la vista dentro de Views.
+     * @param array $datos Información enviada desde el controlador.
      */
     public function render($view, $datos = [])
     {
-        // Extraer el arreglo para convertir
-        // cada índice en una variable.
+        // Convierte el arreglo en variables disponibles para la vista.
         extract($datos);
 
-        // Incluir el archivo de la vista.
-        include __DIR__ . '/../Views/' . $view . '.php';
+        // Ruta de la vista solicitada.
+        $archivoVista = __DIR__ . '/../Views/' . $view . '.php';
 
-        // Carga la vista.
+        if (!file_exists($archivoVista)) {
+            throw new Exception("La vista '{$view}' no existe.");
+        }
+
+        // Cargar la plantilla superior.
+        include __DIR__ . '/../Views/layout/header.php';
+
+        // Cargar la vista.
         include $archivoVista;
+
+        // Cargar la plantilla inferior.
+        include __DIR__ . '/../Views/layout/footer.php';
     }
 }
