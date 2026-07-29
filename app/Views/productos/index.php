@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Vista:
  * Listado de Productos
@@ -7,7 +8,9 @@
  * ----------------------
  * $productos
  */
+
 ?>
+
 <main class="contenedor">
     <!-- Encabezado de la página -->
     <header class="encabezado">
@@ -19,13 +22,15 @@
     </header>
     <!-- Acciones principales -->
     <section class="acciones">
-        <a href="/admin/productos/crear">
+        <a
+            href="/admin/productos/crear"
+            class="boton boton-verde">
             + Nuevo Producto
         </a>
     </section>
     <!-- Tabla de productos -->
     <section class="tabla-productos">
-        <table border="1" cellpadding="8">
+        <table class="tabla">
             <thead>
                 <tr>
                     <th>ID</th>
@@ -33,6 +38,7 @@
                     <th>Nombre</th>
                     <th>Precio</th>
                     <th>Stock</th>
+                    <th>Estado</th>
                     <th>Acciones</th>
                 </tr>
             </thead>
@@ -40,13 +46,32 @@
                 <?php if (!empty($productos)) : ?>
                     <?php foreach ($productos as $producto) : ?>
                         <tr>
-                            <td><?= $producto->id ?></td>
-                            <td><?= $producto->sku ?></td>
-                            <td><?= $producto->nombre ?></td>
-                            <td>$<?= number_format($producto->precio_actual, 2) ?></td>
-                            <td><?= $producto->stock ?></td>
                             <td>
-                                <a href="/admin/productos/editar?id=<?= $producto->id ?>">
+                                <?= htmlspecialchars($producto->id) ?>
+                            </td>
+                            <td>
+                                <?= htmlspecialchars($producto->sku) ?>
+                            </td>
+                            <td>
+                                <?= htmlspecialchars($producto->nombre) ?>
+                            </td>
+                            <td>
+                                $<?= number_format((float) $producto->precio_actual, 2) ?>
+                            </td>
+                            <td>
+                                <?= htmlspecialchars($producto->stock) ?>
+                            </td>
+                            <td>
+                                <?php if ($producto->stock == 0) : ?>
+                                    Agotado
+                                <?php elseif ($producto->stock <= 10) : ?>
+                                    Stock bajo
+                                <?php else : ?>
+                                    Disponible
+                                <?php endif; ?>
+                            </td>
+                            <td>
+                                <a href="/admin/productos/editar?id=<?= urlencode($producto->id) ?>">
                                     Editar
                                 </a>
                                 |
@@ -57,7 +82,7 @@
                                     <input
                                         type="hidden"
                                         name="id"
-                                        value="<?= $producto->id ?>">
+                                        value="<?= htmlspecialchars($producto->id) ?>">
                                     <button type="submit">
                                         Eliminar
                                     </button>
@@ -67,7 +92,7 @@
                     <?php endforeach; ?>
                 <?php else : ?>
                     <tr>
-                        <td colspan="6">
+                        <td colspan="7">
                             No existen productos registrados.
                         </td>
                     </tr>
@@ -75,12 +100,13 @@
             </tbody>
         </table>
     </section>
-
     <!-- Información adicional -->
     <footer class="resumen">
         <p>
             Total de productos:
-            <strong><?= count($productos) ?></strong>
+            <strong>
+                <?= count($productos) ?>
+            </strong>
         </p>
     </footer>
 </main>

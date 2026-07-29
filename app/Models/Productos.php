@@ -14,7 +14,7 @@ class Producto extends ActiveRecord
         'precio_original',
         'precio_actual',
         'stock',
-        'imagen'
+        'imagen_principal'
     ];
 
     public $id;
@@ -26,13 +26,14 @@ class Producto extends ActiveRecord
     public $precio_original;
     public $precio_actual;
     public $stock;
-    public $imagen;
+    public $imagen_principal;
     public $created_at;
     public $updated_at;
 
 
-    public function __construct()
+    public function __construct($args = [])
     {
+        $this->id = $args['id'] ?? null;
         $this->categoria_id = '';
         $this->marca_id = '';
         $this->sku = '';
@@ -41,7 +42,7 @@ class Producto extends ActiveRecord
         $this->precio_original = 0;
         $this->precio_actual = 0;
         $this->stock = 0;
-        $this->imagen = '';
+        $this->imagen_principal = '';
     }
 
     public function validar()
@@ -58,6 +59,16 @@ class Producto extends ActiveRecord
         }
         if ($this->stock < 0) {
             static::$errores[] = 'El stock no puede ser negativo.';
+        }
+        if (!$this->categoria_id) {
+            self::$errores[] = 'La categoría es obligatoria.';
+        }
+        if (!$this->marca_id) {
+            self::$errores[] = 'La marca es obligatoria.';
+        }
+
+        if ($this->precio_original < 0) {
+            self::$errores[] = 'El precio original no puede ser negativo.';
         }
         return static::$errores;
     }

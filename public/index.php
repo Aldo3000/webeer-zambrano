@@ -18,6 +18,8 @@ require_once __DIR__ . '/../include/config/database.php';
 // Modelos
 require_once __DIR__ . '/../app/Models/ActiveRecord.php';
 require_once __DIR__ . '/../app/Models/Productos.php';
+require_once __DIR__ . '/../app/Models/Categoria.php';
+require_once __DIR__ . '/../app/Models/Marca.php';
 
 // Router
 require_once __DIR__ . '/../app/Router/Router.php';

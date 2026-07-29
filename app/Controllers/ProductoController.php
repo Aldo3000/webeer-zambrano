@@ -25,101 +25,149 @@ class ProductoController
     }
 
     /**
-     * Muestra el formulario de creación
-     * y procesa el registro del producto.
+     * Muestra el formulario para crear un producto
+     * y procesa el registro cuando el usuario envía
+     * la información mediante una petición POST.
      */
     public static function crear()
     {
-        // Crea un objeto vacío que será utilizado por el formulario.
+        // Crea un objeto Producto vacío que será utilizado
+        // para llenar el formulario o conservar los datos
+        // cuando existan errores de validación.
         $producto = new Producto();
 
-        // Obtiene un arreglo vacío de errores (o errores previos).
+        // Obtiene el arreglo de errores del modelo.
+        // La primera vez estará vacío.
         $errores = Producto::getErrores();
+
+        // Obtiene todas las categorías.
+        $categorias = Categoria::all();
+
+        // Obtiene todas las marcas.
+        $marcas = Marca::all();
 
         // Verifica si el formulario fue enviado.
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-            // Crea un objeto Producto utilizando la información del formulario.
-            $producto = new Producto($_POST);
+            // Obtiene únicamente la información del producto
+            // enviada desde el formulario.
+            $datos = $_POST['producto'];
 
-            // Ejecuta las validaciones definidas en el modelo.
+            // Copia los valores recibidos hacia el objeto Producto.
+            $producto->sincronizar($datos);
+
+            // Ejecuta las reglas de validación definidas
+            // dentro del modelo Producto.
             $errores = $producto->validar();
 
-            // Si no existen errores...
+            // Si no existen errores de validación...
             if (empty($errores)) {
 
                 // Guarda el producto en la base de datos.
                 $producto->guardar();
 
-                // Redirecciona al listado para evitar reenviar el formulario.
+                // Redirecciona al listado para evitar que
+                // el navegador vuelva a enviar el formulario
+                // si el usuario actualiza la página.
                 header('Location: /admin/productos');
+                exit;
             }
         }
 
-        // Crea una instancia del Router.
+        // Crea una instancia del Router para renderizar la vista.
         $router = new Router();
 
-        // Muestra el formulario de creación.
+        // Muestra la vista del formulario de creación.
         $router->render('productos/crear', [
 
-            // Envía el objeto Producto a la vista.
+            // Envía el objeto Producto para llenar
+            // automáticamente los campos del formulario.
             'producto' => $producto,
 
-            // Envía los errores de validación.
-            'errores' => $errores
+            // Envía los mensajes de error, si existen.
+            'errores' => $errores,
+
+            'categorias' => $categorias,
+
+            'marcas' => $marcas
         ]);
     }
-
     /**
      * Muestra el formulario de edición
-     * y procesa la actualización.
+     * y procesa la actualización del producto.
      */
     public static function editar()
     {
-        // Obtiene el ID enviado por la URL.
-        $id = $_GET['id'] ?? null;
+        // Obtiene el ID enviado mediante la URL
+        // y verifica que sea un número entero válido.
+        $id = filter_var($_GET['id'] ?? null, FILTER_VALIDATE_INT);
 
-        // Si no existe un ID válido, vuelve al listado.
+        // Si el ID no es válido, regresa al listado.
         if (!$id) {
             header('Location: /admin/productos');
+            exit;
         }
 
         // Busca el producto correspondiente en la base de datos.
         $producto = Producto::find($id);
 
-        // Inicializa el arreglo de errores.
-        $errores = Producto::getErrores();
+        // Si el producto no existe,
+        // vuelve al listado principal.
+        if (!$producto) {
+            header('Location: /admin/productos');
+            exit;
+        }
 
-        // Si el usuario envió el formulario...
+        // Temporalmente mostramos el objeto para comprobar
+        // que la búsqueda funciona correctamente.
+        /*echo '<pre>';
+        var_dump($producto);
+        echo '</pre>';*/
+
+        // Obtiene el arreglo de errores.
+        $errores = Producto::getErrores();
+        $categorias = Categoria::all();
+        $marcas = Marca::all();
+
+        // Verifica si el usuario envió el formulario.
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-            // Actualiza el objeto con la nueva información.
-            $producto->sincronizar($_POST);
+            // Obtiene únicamente la información del producto
+            // enviada desde el formulario.
+            $datos = $_POST['producto'];
+
+            // Actualiza las propiedades del objeto Producto
+            // con los nuevos valores enviados.
+            $producto->sincronizar($datos);
 
             // Ejecuta nuevamente las validaciones.
             $errores = $producto->validar();
 
-            // Si todo es correcto...
+            // Si no existen errores...
             if (empty($errores)) {
 
                 // Guarda los cambios realizados.
                 $producto->guardar();
 
-                // Regresa al listado.
+                // Regresa al listado de productos.
                 header('Location: /admin/productos');
+                exit;
             }
         }
 
         // Crea una instancia del Router.
         $router = new Router();
 
-        // Muestra el formulario de edición.
+        // Muestra la vista de edición.
         $router->render('productos/editar', [
 
-            // Envía el producto encontrado.
+            // Envía el producto encontrado
+            // para llenar el formulario.
             'producto' => $producto,
+            'categorias' => $categorias,
+            'marcas' => $marcas,
 
-            // Envía los posibles errores.
+            // Envía los errores de validación.
             'errores' => $errores
         ]);
     }
