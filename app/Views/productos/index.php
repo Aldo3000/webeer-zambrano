@@ -9,6 +9,12 @@
  * $productos
  */
 
+
+$mensajes = [
+    1 => 'Producto creado correctamente.',
+    2 => 'Producto actualizado correctamente.',
+    3 => 'Producto eliminado correctamente.'
+];
 ?>
 
 <main class="contenedor">
@@ -19,6 +25,16 @@
             Desde este módulo podrás administrar todos los productos
             registrados en el sistema.
         </p>
+
+        <div>
+            <?php
+            $resultado = $_GET['resultado'] ?? '';
+
+            if (isset($mensajes[$resultado])) {
+                echo '<p class="alerta exito">' . htmlspecialchars($mensajes[$resultado]) . '</p>';
+            }
+            ?>
+        </div>
     </header>
     <!-- Acciones principales -->
     <section class="acciones">
@@ -78,7 +94,8 @@
                                 <form
                                     method="POST"
                                     action="/admin/productos/eliminar"
-                                    style="display:inline;">
+                                    style="display:inline;"
+                                    onsubmit="return confirm('¿Deseas eliminar este producto?');">
                                     <input
                                         type="hidden"
                                         name="id"

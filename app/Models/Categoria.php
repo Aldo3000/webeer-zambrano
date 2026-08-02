@@ -10,13 +10,14 @@ class Categoria extends ActiveRecord
 
     // Columnas existentes en la tabla.
     protected static $columnasDB = [
-        'id',
-        'nombre'
+        'nombre',
+        'descripcion'
     ];
 
     // Propiedades del objeto.
     public $id;
     public $nombre;
+    public $descripcion;
 
     /**
      * Constructor.
@@ -25,5 +26,6 @@ class Categoria extends ActiveRecord
     {
         $this->id = $args['id'] ?? null;
         $this->nombre = $args['nombre'] ?? '';
+        $this->descripcion = $args['descripcion'] ?? '';
     }
 }

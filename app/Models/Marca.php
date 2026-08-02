@@ -8,7 +8,6 @@ class Marca extends ActiveRecord
     protected static $tabla = 'marcas';
 
     protected static $columnasDB = [
-        'id',
         'nombre'
     ];
 

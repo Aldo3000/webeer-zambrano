@@ -58,3 +58,89 @@ $router->post('/admin/productos/editar', function () {
 $router->post('/admin/productos/eliminar', function () {
     ProductoController::eliminar();
 });
+
+/**
+ * Listar categorías.
+ */
+$router->get('/admin/categorias', function () {
+    CategoriaController::index();
+});
+
+/**
+ * Mostrar el formulario de creación.
+ */
+$router->get('/admin/categorias/crear', function () {
+    CategoriaController::crear();
+});
+
+/**
+ * Procesar el formulario de creación.
+ */
+$router->post('/admin/categorias/crear', function () {
+    CategoriaController::crear();
+});
+
+/**
+ * Mostrar el formulario de edición.
+ */
+$router->get('/admin/categorias/editar', function () {
+    CategoriaController::editar();
+});
+
+/**
+ * Procesar el formulario de edición.
+ */
+$router->post('/admin/categorias/editar', function () {
+    CategoriaController::editar();
+});
+
+/**
+ * Eliminar una categoría.
+ */
+$router->post('/admin/categorias/eliminar', function () {
+    CategoriaController::eliminar();
+});
+
+
+
+/**
+ * Listar marcas.
+ */
+$router->get('/admin/marcas', function () {
+    MarcaController::index();
+});
+
+/**
+ * Mostrar el formulario de creación.
+ */
+$router->get('/admin/marcas/crear', function () {
+    MarcaController::crear();
+});
+
+/**
+ * Procesar el formulario de creación.
+ */
+$router->post('/admin/marcas/crear', function () {
+    MarcaController::crear();
+});
+
+/**
+ * Mostrar el formulario de edición.
+ */
+$router->get('/admin/marcas/editar', function () {
+    MarcaController::editar();
+});
+
+/**
+ * Procesar el formulario de edición.
+ */
+$router->post('/admin/marcas/editar', function () {
+    MarcaController::editar();
+});
+
+/**
+ * Eliminar una categoría.
+ */
+$router->post('/admin/marcas/eliminar', function () {
+    MarcaController::eliminar();
+});

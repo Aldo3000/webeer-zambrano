@@ -26,6 +26,8 @@ require_once __DIR__ . '/../app/Router/Router.php';
 
 // Controladores
 require_once __DIR__ . '/../app/Controllers/ProductoController.php';
+require_once __DIR__ . '/../app/Controllers/CategoriaController.php';
+require_once __DIR__ . '/../app/Controllers/MarcaController.php';
 
 
 /*

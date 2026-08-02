@@ -64,13 +64,15 @@ class ProductoController
             if (empty($errores)) {
 
                 // Guarda el producto en la base de datos.
-                $producto->guardar();
+                $resultado = $producto->guardar();
 
                 // Redirecciona al listado para evitar que
                 // el navegador vuelva a enviar el formulario
                 // si el usuario actualiza la página.
-                header('Location: /admin/productos');
-                exit;
+                if ($resultado) {
+                    header('Location: /admin/productos?resultado=1');
+                    exit;
+                }
             }
         }
 
@@ -147,11 +149,13 @@ class ProductoController
             if (empty($errores)) {
 
                 // Guarda los cambios realizados.
-                $producto->guardar();
+                $resultado = $producto->guardar();
 
                 // Regresa al listado de productos.
-                header('Location: /admin/productos');
-                exit;
+                if ($resultado) {
+                    header('Location: /admin/productos?resultado=2');
+                    exit;
+                }
             }
         }
 
@@ -193,7 +197,12 @@ class ProductoController
                 if ($producto) {
 
                     // Elimina el registro de la base de datos.
-                    $producto->delete();
+                    $resultado = $producto->delete();
+
+                    if ($resultado) {
+                        header('Location: /admin/productos?resultado=3');
+                        exit;
+                    }
                 }
             }
         }
