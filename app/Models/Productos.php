@@ -72,4 +72,40 @@ class Producto extends ActiveRecord
         }
         return static::$errores;
     }
+
+    /**
+     * Obtiene la categoría a la que pertenece
+     * el producto actual.
+     *
+     * @return Categoria|null
+     */
+    public function categoria()
+    {
+        // Si el producto no tiene categoría asignada,
+        // no hay nada que buscar.
+        if (!$this->categoria_id) {
+            return null;
+        }
+
+        // Buscar y devolver la categoría.
+        return Categoria::find($this->categoria_id);
+    }
+
+    /**
+     * Obtiene la marca a la que pertenece
+     * el producto actual.
+     *
+     * @return Marca|null
+     */
+    public function marca()
+    {
+        // Si el producto no tiene marca asignada,
+        // no hay nada que buscar.
+        if (!$this->marca_id) {
+            return null;
+        }
+
+        // Buscar y devolver la marca.
+        return Marca::find($this->marca_id);
+    }
 }

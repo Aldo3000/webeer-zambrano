@@ -49,9 +49,12 @@ $mensajes = [
         <table class="tabla">
             <thead>
                 <tr>
+                    <th>Imagen</th>
                     <th>ID</th>
                     <th>SKU</th>
                     <th>Nombre</th>
+                    <th>Categoria</th>
+                    <th>Marca</th>
                     <th>Precio</th>
                     <th>Stock</th>
                     <th>Estado</th>
@@ -61,7 +64,25 @@ $mensajes = [
             <tbody>
                 <?php if (!empty($productos)) : ?>
                     <?php foreach ($productos as $producto) : ?>
+                        <?php
+                        // Obtener la categoría del producto.
+                        $categoria = $producto->categoria();
+
+                        // Obtener la marca del producto.
+                        $marca = $producto->marca();
+                        ?>
                         <tr>
+                            <td>
+
+                                <?php if (!empty($producto->imagen_principal)) : ?>
+                                    <img
+                                        src="/imagenes/<?= htmlspecialchars($producto->imagen_principal) ?>"
+                                        alt="<?= htmlspecialchars($producto->nombre) ?>"
+                                        width="80">
+                                <?php else : ?>
+                                    Sin imagen
+                                <?php endif; ?>
+                            </td>
                             <td>
                                 <?= htmlspecialchars($producto->id) ?>
                             </td>
@@ -70,6 +91,12 @@ $mensajes = [
                             </td>
                             <td>
                                 <?= htmlspecialchars($producto->nombre) ?>
+                            </td>
+                            <td>
+                                <?= htmlspecialchars($categoria ? $categoria->nombre : 'Sin categoría') ?>
+                            </td>
+                            <td>
+                                <?= htmlspecialchars($marca ? $marca->nombre : 'Sin marca') ?>
                             </td>
                             <td>
                                 $<?= number_format((float) $producto->precio_actual, 2) ?>

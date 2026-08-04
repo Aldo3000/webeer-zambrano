@@ -11,7 +11,8 @@
         </div>
     <?php endforeach; ?>
 
-    <form method="POST">
+    <form method="POST"
+        enctype="multipart/form-data">
 
         <?php include __DIR__ . '/_formulario.php'; ?>
 

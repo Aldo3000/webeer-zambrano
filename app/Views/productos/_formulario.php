@@ -66,6 +66,30 @@
         value="<?= htmlspecialchars($producto->stock) ?>">
 </div>
 
+<div>
+    <?php if (!empty($producto->imagen_principal)) : ?>
+        <div>
+            <p>
+                Imagen actual
+            </p>
+            <img
+                src="/imagenes/<?= htmlspecialchars($producto->imagen_principal) ?>"
+                alt="<?= htmlspecialchars($producto->nombre) ?>"
+                width="200">
+        </div>
+    <?php endif; ?>
+    <label for="imagen">
+        Imagen principal
+    </label>
+
+    <input
+        type="file"
+        id="imagen"
+        name="imagen"
+        accept="image/*">
+
+</div>
+
 <label for="categoria_id">
     Categoría
 </label>

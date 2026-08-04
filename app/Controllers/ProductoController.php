@@ -53,6 +53,27 @@ class ProductoController
             // enviada desde el formulario.
             $datos = $_POST['producto'];
 
+            // Verifica si el usuario seleccionó una imagen.
+            if (!empty($_FILES['imagen']['name'])) {
+
+                // Obtiene la extensión original del archivo.
+                $extension = pathinfo(
+                    $_FILES['imagen']['name'],
+                    PATHINFO_EXTENSION
+                );
+
+                // Genera un nombre aleatorio para evitar
+                // archivos repetidos.
+                $nombreImagen = bin2hex(random_bytes(16));
+
+                // Agrega nuevamente la extensión.
+                $nombreImagen .= '.' . strtolower($extension);
+
+                // Agrega el nombre de la imagen a los datos
+                // que posteriormente serán sincronizados.
+                $datos['imagen_principal'] = $nombreImagen;
+            }
+
             // Copia los valores recibidos hacia el objeto Producto.
             $producto->sincronizar($datos);
 
@@ -69,7 +90,29 @@ class ProductoController
                 // Redirecciona al listado para evitar que
                 // el navegador vuelva a enviar el formulario
                 // si el usuario actualiza la página.
+                // Si el producto se guardó correctamente...
                 if ($resultado) {
+
+                    // Ruta donde se almacenarán las imágenes.
+                    $carpetaImagenes = __DIR__ . '/../../public/imagenes/';
+
+                    // Si la carpeta no existe, crearla automáticamente.
+                    if (!is_dir($carpetaImagenes)) {
+                        mkdir($carpetaImagenes, 0755, true);
+                    }
+
+                    // Verifica que realmente se haya seleccionado una imagen.
+                    if (!empty($_FILES['imagen']['tmp_name'])) {
+
+                        // Mueve la imagen desde la carpeta temporal de PHP
+                        // hacia la carpeta definitiva del proyecto.
+                        move_uploaded_file(
+                            $_FILES['imagen']['tmp_name'],
+                            $carpetaImagenes . $nombreImagen
+                        );
+                    }
+
+                    // Regresa al listado de productos.
                     header('Location: /admin/productos?resultado=1');
                     exit;
                 }
@@ -137,6 +180,28 @@ class ProductoController
             // Obtiene únicamente la información del producto
             // enviada desde el formulario.
             $datos = $_POST['producto'];
+            // Guarda el nombre de la imagen actual antes de modificar el objeto.
+            $imagenAnterior = $producto->imagen_principal;
+
+            // Verifica si el usuario seleccionó una nueva imagen.
+            if (!empty($_FILES['imagen']['name'])) {
+
+                // Obtiene la extensión del archivo.
+                $extension = pathinfo(
+                    $_FILES['imagen']['name'],
+                    PATHINFO_EXTENSION
+                );
+
+                // Genera un nombre aleatorio.
+                $nombreImagen = bin2hex(random_bytes(16));
+
+                // Agrega nuevamente la extensión.
+                $nombreImagen .= '.' . strtolower($extension);
+
+                // Actualiza el nombre de la imagen
+                // dentro del arreglo de datos.
+                $datos['imagen_principal'] = $nombreImagen;
+            }
 
             // Actualiza las propiedades del objeto Producto
             // con los nuevos valores enviados.
@@ -153,6 +218,36 @@ class ProductoController
 
                 // Regresa al listado de productos.
                 if ($resultado) {
+
+                    // Ruta donde se almacenan las imágenes.
+                    $carpetaImagenes = __DIR__ . '/../../public/imagenes/';
+
+                    // Verifica si el usuario seleccionó una imagen nueva.
+                    if (!empty($_FILES['imagen']['tmp_name'])) {
+
+                        // Mueve la imagen nueva.
+                        move_uploaded_file(
+                            $_FILES['imagen']['tmp_name'],
+                            $carpetaImagenes . $nombreImagen
+                        );
+
+                        // Si existía una imagen anterior...
+                        if (!empty($imagenAnterior)) {
+
+                            // Construye la ruta completa.
+                            $rutaImagenAnterior = $carpetaImagenes . $imagenAnterior;
+
+                            // Verifica que el archivo exista.
+                            if (file_exists($rutaImagenAnterior)) {
+
+                                // Elimina la imagen anterior.
+                                unlink($rutaImagenAnterior);
+                            }
+                        }
+
+                        // Aquí eliminaremos la imagen anterior.
+                    }
+
                     header('Location: /admin/productos?resultado=2');
                     exit;
                 }

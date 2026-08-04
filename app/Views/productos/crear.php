@@ -37,6 +37,7 @@
 
     <form
         method="POST"
+        enctype="multipart/form-data"
         action="/admin/productos/crear">
         <?php include __DIR__ . '/_formulario.php'; ?>
         <button type="submit">
