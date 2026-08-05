@@ -53,25 +53,53 @@ class ProductoController
             // enviada desde el formulario.
             $datos = $_POST['producto'];
 
+            // Tipos MIME permitidos.
+            $tiposPermitidos = [
+                'image/jpeg',
+                'image/png',
+                'image/webp'
+            ];
+
+            // Tamaño máximo permitido (2 MB).
+            $tamanoMaximo = 3 * 1024 * 1024;
+
             // Verifica si el usuario seleccionó una imagen.
             if (!empty($_FILES['imagen']['name'])) {
 
-                // Obtiene la extensión original del archivo.
-                $extension = pathinfo(
-                    $_FILES['imagen']['name'],
-                    PATHINFO_EXTENSION
-                );
+                // Verifica que el archivo sea una imagen válida.
+                if (!in_array($_FILES['imagen']['type'], $tiposPermitidos)) {
 
-                // Genera un nombre aleatorio para evitar
-                // archivos repetidos.
-                $nombreImagen = bin2hex(random_bytes(16));
+                    $errores[] =
+                        'Solo se permiten imágenes JPG, PNG o WEBP.';
+                }
 
-                // Agrega nuevamente la extensión.
-                $nombreImagen .= '.' . strtolower($extension);
+                // Verifica que el tamaño no exceda el máximo permitido.
+                if ($_FILES['imagen']['size'] > $tamanoMaximo) {
 
-                // Agrega el nombre de la imagen a los datos
-                // que posteriormente serán sincronizados.
-                $datos['imagen_principal'] = $nombreImagen;
+                    $errores[] =
+                        'La imagen no puede ser mayor a 3 MB.';
+                }
+
+                // Si la imagen cumple todas las validaciones...
+                if (empty($errores)) {
+
+                    // Obtiene la extensión original del archivo.
+                    $extension = pathinfo(
+                        $_FILES['imagen']['name'],
+                        PATHINFO_EXTENSION
+                    );
+
+                    // Genera un nombre aleatorio para evitar
+                    // archivos repetidos.
+                    $nombreImagen = bin2hex(random_bytes(16));
+
+                    // Agrega nuevamente la extensión.
+                    $nombreImagen .= '.' . strtolower($extension);
+
+                    // Agrega el nombre de la imagen a los datos
+                    // que posteriormente serán sincronizados.
+                    $datos['imagen_principal'] = $nombreImagen;
+                }
             }
 
             // Copia los valores recibidos hacia el objeto Producto.
@@ -79,7 +107,7 @@ class ProductoController
 
             // Ejecuta las reglas de validación definidas
             // dentro del modelo Producto.
-            $errores = $producto->validar();
+            $errores = array_merge($errores, $producto->validar());
 
             // Si no existen errores de validación...
             if (empty($errores)) {
@@ -183,24 +211,55 @@ class ProductoController
             // Guarda el nombre de la imagen actual antes de modificar el objeto.
             $imagenAnterior = $producto->imagen_principal;
 
+            // Guarda el nombre de la imagen actual antes de modificar el objeto.
+            $imagenAnterior = $producto->imagen_principal;
+
+            // Tipos MIME permitidos.
+            $tiposPermitidos = [
+                'image/jpeg',
+                'image/png',
+                'image/webp'
+            ];
+
+            // Tamaño máximo permitido (3 MB).
+            $tamanoMaximo = 3 * 1024 * 1024;
+
             // Verifica si el usuario seleccionó una nueva imagen.
             if (!empty($_FILES['imagen']['name'])) {
 
-                // Obtiene la extensión del archivo.
-                $extension = pathinfo(
-                    $_FILES['imagen']['name'],
-                    PATHINFO_EXTENSION
-                );
+                // Verifica que el archivo sea una imagen válida.
+                if (!in_array($_FILES['imagen']['type'], $tiposPermitidos)) {
 
-                // Genera un nombre aleatorio.
-                $nombreImagen = bin2hex(random_bytes(16));
+                    $errores[] =
+                        'Solo se permiten imágenes JPG, PNG o WEBP.';
+                }
 
-                // Agrega nuevamente la extensión.
-                $nombreImagen .= '.' . strtolower($extension);
+                // Verifica que el tamaño no exceda el máximo permitido.
+                if ($_FILES['imagen']['size'] > $tamanoMaximo) {
 
-                // Actualiza el nombre de la imagen
-                // dentro del arreglo de datos.
-                $datos['imagen_principal'] = $nombreImagen;
+                    $errores[] =
+                        'La imagen no puede ser mayor a 3 MB.';
+                }
+
+                // Si la imagen cumple todas las validaciones...
+                if (empty($errores)) {
+
+                    // Obtiene la extensión del archivo.
+                    $extension = pathinfo(
+                        $_FILES['imagen']['name'],
+                        PATHINFO_EXTENSION
+                    );
+
+                    // Genera un nombre aleatorio.
+                    $nombreImagen = bin2hex(random_bytes(16));
+
+                    // Agrega nuevamente la extensión.
+                    $nombreImagen .= '.' . strtolower($extension);
+
+                    // Actualiza el nombre de la imagen
+                    // dentro del arreglo de datos.
+                    $datos['imagen_principal'] = $nombreImagen;
+                }
             }
 
             // Actualiza las propiedades del objeto Producto
@@ -208,7 +267,7 @@ class ProductoController
             $producto->sincronizar($datos);
 
             // Ejecuta nuevamente las validaciones.
-            $errores = $producto->validar();
+            $errores = array_merge($errores, $producto->validar());
 
             // Si no existen errores...
             if (empty($errores)) {
@@ -290,8 +349,27 @@ class ProductoController
 
                 // Si el producto existe...
                 if ($producto) {
+                    // Si el producto tiene una imagen asociada...
+                    if (!empty($producto->imagen_principal)) {
 
-                    // Elimina el registro de la base de datos.
+                        // Obtiene la carpeta donde se almacenan
+                        // todas las imágenes del proyecto.
+                        $carpetaImagenes = __DIR__ . '/../../public/imagenes/';
+
+                        // Construye la ruta completa del archivo.
+                        $rutaImagen = $carpetaImagenes . $producto->imagen_principal;
+
+                        // Verifica que el archivo exista antes
+                        // de intentar eliminarlo.
+                        if (is_file($rutaImagen)) {
+
+                            // Elimina la imagen del disco.
+                            unlink($rutaImagen);
+                        }
+                    }
+
+                    // Elimina el registro del producto
+                    // de la base de datos.
                     $resultado = $producto->delete();
 
                     if ($resultado) {
