@@ -144,3 +144,58 @@ $router->post('/admin/marcas/editar', function () {
 $router->post('/admin/marcas/eliminar', function () {
     MarcaController::eliminar();
 });
+
+/*
+|--------------------------------------------------------------------------
+| Dashboard
+|--------------------------------------------------------------------------
+*/
+// Mostrar el panel principal de administración.
+$router->get('/admin', function () {
+    AdminController::index();
+});
+
+
+/*
+|--------------------------------------------------------------------------
+| Usuarios
+|--------------------------------------------------------------------------
+*/
+
+// Listado de usuarios.
+$router->get('/admin/usuarios', function () {
+    UsuarioController::index();
+});
+
+// Formulario para crear un usuario.
+$router->get('/admin/usuarios/crear', function () {
+    UsuarioController::crear();
+});
+
+// Procesar el formulario de creación.
+$router->post('/admin/usuarios/crear', function () {
+    UsuarioController::crear();
+});
+
+/*
+|--------------------------------------------------------------------------
+| Login
+|--------------------------------------------------------------------------
+|
+| Rutas relacionadas con la autenticación.
+|
+*/
+
+// Mostrar el formulario de inicio de sesión.
+$router->get('/login', function () {
+
+    LoginController::login();
+
+});
+
+// Procesar el formulario.
+$router->post('/login', function () {
+
+    LoginController::login();
+
+});

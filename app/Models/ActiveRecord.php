@@ -216,4 +216,49 @@ class ActiveRecord
         // Regresar los objetos
         return $objetos;
     }
+
+    /**
+     * Obtiene la cantidad total de registros
+     * existentes en la tabla del modelo.
+     *
+     * @return int
+     */
+    public static function totalRegistros()
+    {
+        // Construye la consulta SQL.
+        $query = "SELECT COUNT(*) AS total FROM " . static::$tabla;
+
+        // Ejecuta la consulta.
+        $resultado = static::$db->query($query);
+
+        // Obtiene el resultado como arreglo asociativo.
+        $fila = $resultado->fetch_assoc();
+
+        // Devuelve el total de registros.
+        return (int) $fila['total'];
+    }
+
+    /**
+     * Busca un registro por una columna específica.
+     *
+     * @param string $columna
+     * @param mixed $valor
+     * @return static|null
+     */
+    public static function where($columna, $valor)
+    {
+        // Escapa el valor para evitar inyección SQL.
+        $valor = static::$db->escape_string($valor);
+
+        // Construye la consulta.
+        $query = "SELECT * FROM " . static::$tabla;
+        $query .= " WHERE {$columna} = '{$valor}'";
+        $query .= " LIMIT 1";
+
+        // Ejecuta la consulta.
+        $resultado = static::consultaSQL($query);
+
+        // Devuelve el primer resultado o null.
+        return array_shift($resultado);
+    }
 }

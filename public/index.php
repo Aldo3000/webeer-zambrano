@@ -28,6 +28,10 @@ require_once __DIR__ . '/../app/Router/Router.php';
 require_once __DIR__ . '/../app/Controllers/ProductoController.php';
 require_once __DIR__ . '/../app/Controllers/CategoriaController.php';
 require_once __DIR__ . '/../app/Controllers/MarcaController.php';
+require_once __DIR__ . '/../app/Controllers/AdminController.php';
+require_once __DIR__ . '/../app/Models/Usuario.php';
+require_once __DIR__ . '/../app/Controllers/LoginController.php';
+require_once __DIR__ . '/../app/Controllers/UsuarioController.php';
 
 
 /*

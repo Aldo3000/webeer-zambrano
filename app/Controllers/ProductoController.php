@@ -303,8 +303,6 @@ class ProductoController
                                 unlink($rutaImagenAnterior);
                             }
                         }
-
-                        // Aquí eliminaremos la imagen anterior.
                     }
 
                     header('Location: /admin/productos?resultado=2');
