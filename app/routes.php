@@ -199,3 +199,42 @@ $router->post('/login', function () {
     LoginController::login();
 
 });
+
+/*
+|--------------------------------------------------------------------------
+| Logout
+|--------------------------------------------------------------------------
+*/
+
+$router->get('/logout', function () {
+
+    LoginController::logout();
+
+});
+
+/*
+|--------------------------------------------------------------------------
+| Showroom
+|--------------------------------------------------------------------------
+|
+| Rutas públicas del catálogo de productos.
+|
+*/
+
+// Mostrar el catálogo.
+$router->get('/productos', function () {
+    ShowroomController::index();
+});
+
+/*
+|--------------------------------------------------------------------------
+| Detalle de producto
+|--------------------------------------------------------------------------
+|
+| Muestra la información individual de un producto.
+|
+*/
+
+$router->get('/productos/ver', function () {
+    ShowroomController::ver();
+});

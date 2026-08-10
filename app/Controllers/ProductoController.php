@@ -11,6 +11,8 @@ class ProductoController
      */
     public static function index()
     {
+        // Verifica que el usuario esté autenticado.
+        estaAutenticado();
         // Solicita al modelo todos los productos registrados.
         $productos = Producto::all();
 

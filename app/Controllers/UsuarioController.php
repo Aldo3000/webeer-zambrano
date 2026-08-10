@@ -11,6 +11,8 @@ class UsuarioController
      */
     public static function index()
     {
+        // Verifica que el usuario esté autenticado.
+        estaAutenticado();
         // Obtiene todos los usuarios registrados.
         $usuarios = Usuario::all();
         // Crea una instancia del Router.

@@ -9,15 +9,6 @@ define('CARPETA_IMAGENES', __DIR__ . '/../imagenes/');
     include TEMPLATES_URL . "/{$nombre}.php";
 }*/
 
-function estaAutenticado()
-{
-    session_start();
-    
-    if (!$_SESSION['login']) {
-        header('Location: /');
-    }
-}
-
 function debug($variable)
 {
     echo "<pre>";
@@ -35,4 +26,28 @@ function s($html) : string {
 function esPost(): bool
 {
     return $_SERVER['REQUEST_METHOD'] === 'POST';
+}
+/**
+ * Verifica que exista una sesión válida.
+ *
+ * Si el usuario no ha iniciado sesión,
+ * será redireccionado al Login.
+ */
+function estaAutenticado()
+{
+    // Inicia la sesión si aún no existe una activa.
+    if (session_status() !== PHP_SESSION_ACTIVE) {
+        session_start();
+    }
+
+    // Verifica si el usuario inició sesión.
+    if (
+        !isset($_SESSION['login']) ||
+        $_SESSION['login'] !== true
+    ) {
+
+        // Redirecciona al Login.
+        header('Location: /login');
+        exit;
+    }
 }

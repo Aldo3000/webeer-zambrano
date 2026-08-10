@@ -11,6 +11,8 @@ class CategoriaController
      */
     public static function index()
     {
+        // Verifica que el usuario esté autenticado.
+        estaAutenticado();
         // Solicita al modelo todos los productos registrados.
         $categorias = Categoria::all();
 
@@ -18,7 +20,7 @@ class CategoriaController
         $router = new Router();
 
         // // Envía la lista de categorías a la vista.
-       $router->render('categorias/index', [
+        $router->render('categorias/index', [
             // La vista recibirá una variable llamada $categorias.
             'categorias' => $categorias
         ]);
@@ -34,7 +36,7 @@ class CategoriaController
         // Crea un objeto categoria vacío que será utilizado
         // para llenar el formulario o conservar los datos
         // cuando existan errores de validación.
-         $categoria = new Categoria();
+        $categoria = new Categoria();
 
         // Obtiene el arreglo de errores del modelo.
         // La primera vez estará vacío.

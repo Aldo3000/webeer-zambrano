@@ -29,6 +29,10 @@ class Producto extends ActiveRecord
     public $imagen_principal;
     public $created_at;
     public $updated_at;
+    // Propiedades utilizadas únicamente para mostrar
+    // información relacionada obtenida mediante JOIN.
+    public $categoria_nombre;
+    public $marca_nombre;
 
 
     public function __construct($args = [])
@@ -43,6 +47,9 @@ class Producto extends ActiveRecord
         $this->precio_actual = 0;
         $this->stock = 0;
         $this->imagen_principal = '';
+
+        $this->categoria_nombre = '';
+        $this->marca_nombre = '';
     }
 
     public function validar()
@@ -107,5 +114,54 @@ class Producto extends ActiveRecord
 
         // Buscar y devolver la marca.
         return Marca::find($this->marca_id);
+    }
+
+    /**
+     * Obtiene un producto junto con
+     * su categoría y marca.
+     */
+    public static function findConRelaciones($id)
+    {
+        // Consulta el producto y obtiene
+        // el nombre de su categoría y marca.
+        $query = "SELECT
+                productos.*,
+                categorias.nombre AS categoria_nombre,
+                marcas.nombre AS marca_nombre
+
+              FROM productos
+
+              LEFT JOIN categorias
+                  ON productos.categoria_id = categorias.id
+
+              LEFT JOIN marcas
+                  ON productos.marca_id = marcas.id
+
+              WHERE productos.id = $id
+              LIMIT 1";
+
+        // Ejecuta la consulta.
+        $resultado = self::$db->query($query);
+
+        // Si no existe el producto,
+        // devuelve null.
+        if (!$resultado->num_rows) {
+            return null;
+        }
+
+        // Obtiene el registro de la consulta.
+        $registro = $resultado->fetch_assoc();
+
+        // Convierte los datos principales
+        // en un objeto Producto.
+        $producto = self::crearObjeto($registro);
+
+        // Agrega los nombres de las relaciones
+        // obtenidos mediante los JOIN.
+        $producto->categoria_nombre = $registro['categoria_nombre'];
+        $producto->marca_nombre = $registro['marca_nombre'];
+
+        // Devuelve el producto completo.
+        return $producto;
     }
 }

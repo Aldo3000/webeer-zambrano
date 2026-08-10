@@ -9,7 +9,7 @@ import sharp from 'sharp'
 
 const sass = gulpSass(dartSass)
 
-// RUTAS (como en tu gulp viejo)
+// RUTAS
 const paths = {
     scss: 'src/scss/**/*.scss',
     js: 'src/js/**/*.js',
@@ -17,27 +17,33 @@ const paths = {
 }
 
 // JS
-export function js(done){
+export function js(done) {
     src('src/js/app.js')
         .pipe(terser())
-        .pipe(dest('build/js'))
+        .pipe(dest('public/build/js'))
     done()
 }
 
 // CSS
-export function css(done){
+export function css(done) {
     src('src/scss/app.scss', { sourcemaps: true })
-        .pipe(sass({
-            outputStyle: 'compressed'
-        }).on('error', sass.logError))
-        .pipe(dest('build/css', { sourcemaps: true }))
+        .pipe(
+            sass({
+                outputStyle: 'compressed'
+            }).on('error', sass.logError)
+        )
+        .pipe(
+            dest('public/build/css', {
+                sourcemaps: true
+            })
+        )
     done()
 }
 
 // 🔥 IMÁGENES (moderno con sharp)
 export async function imagenes(done) {
     const srcDir = './src/img';
-    const buildDir = './build/img';
+    const buildDir = './public/build/img';
     const images = await glob(paths.img);
 
     images.forEach(file => {

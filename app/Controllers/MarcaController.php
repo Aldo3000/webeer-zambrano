@@ -11,6 +11,8 @@ class MarcaController
      */
     public static function index()
     {
+        // Verifica que el usuario esté autenticado.
+        estaAutenticado();
         // Solicita al modelo todas las marcas registradas.
         $marcas = Marca::all();
 

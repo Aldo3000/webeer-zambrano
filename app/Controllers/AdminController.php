@@ -11,6 +11,8 @@ class AdminController
      */
     public static function index()
     {
+        // Verifica que el usuario esté autenticado.
+        estaAutenticado();
         // Obtener estadísticas generales.
         $totalProductos = Producto::totalRegistros();
 

@@ -86,4 +86,26 @@ class LoginController
             'errores' => $errores
         ]);
     }
+
+    /**
+     * Cierra la sesión del usuario.
+     */
+    public static function logout()
+    {
+        // Si existe una sesión activa...
+        if (session_status() !== PHP_SESSION_ACTIVE) {
+            session_start();
+        }
+
+        // Vacía todas las variables de sesión.
+        $_SESSION = [];
+
+        // Destruye la sesión.
+        session_destroy();
+
+        // Regresa al formulario de Login.
+        header('Location: /login');
+
+        exit;
+    }
 }

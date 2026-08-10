@@ -4,11 +4,7 @@
  * Vista:
  * Dashboard Administrativo
  */
-session_start();
-
-echo '<pre>';
-var_dump($_SESSION);
-echo '</pre>';
+//session_start();
 ?>
 
 <main class="contenedor">
@@ -28,6 +24,13 @@ echo '</pre>';
             principales de la aplicación.
         </p>
     </header>
+    <section>
+        <a
+            href="/logout"
+            class="boton boton-rojo">
+            Cerrar sesión
+        </a>
+    </section>
 
 
     <!-- Información -->

@@ -81,25 +81,35 @@ class Router
      * @param string $view Ruta de la vista dentro de Views.
      * @param array $datos Información enviada desde el controlador.
      */
-    public function render($view, $datos = [])
+    public function render($view, $datos = [], $layout = true)
     {
-        // Convierte el arreglo en variables disponibles para la vista.
+        // Convierte las claves del arreglo
+        // en variables disponibles para la vista.
         extract($datos);
 
-        // Ruta de la vista solicitada.
-        $archivoVista = __DIR__ . '/../Views/' . $view . '.php';
+        // Construye la ruta de la vista.
+        $rutaVista = __DIR__ . '/../Views/' . $view . '.php';
 
-        if (!file_exists($archivoVista)) {
-            throw new Exception("La vista '{$view}' no existe.");
+        // Verifica que la vista exista.
+        if (!file_exists($rutaVista)) {
+            die('La vista no existe: ' . $rutaVista);
         }
 
-        // Cargar la plantilla superior.
-        include __DIR__ . '/../Views/layout/header.php';
+        // Si la vista utiliza layout...
+        if ($layout) {
 
-        // Cargar la vista.
-        include $archivoVista;
+            // Carga el header general.
+            require __DIR__ . '/../Views/layout/header.php';
 
-        // Cargar la plantilla inferior.
-        include __DIR__ . '/../Views/layout/footer.php';
+            // Carga la vista solicitada.
+            require $rutaVista;
+
+            // Carga el footer general.
+            require __DIR__ . '/../Views/layout/footer.php';
+        } else {
+
+            // Carga únicamente la vista solicitada.
+            require $rutaVista;
+        }
     }
 }
