@@ -36,9 +36,7 @@ function esPost(): bool
 function estaAutenticado()
 {
     // Inicia la sesión si aún no existe una activa.
-    if (session_status() !== PHP_SESSION_ACTIVE) {
-        session_start();
-    }
+    iniciarSesion();
 
     // Verifica si el usuario inició sesión.
     if (
@@ -49,5 +47,12 @@ function estaAutenticado()
         // Redirecciona al Login.
         header('Location: /login');
         exit;
+    }
+}
+
+function iniciarSesion()
+{
+    if (session_status() !== PHP_SESSION_ACTIVE) {
+        session_start();
     }
 }

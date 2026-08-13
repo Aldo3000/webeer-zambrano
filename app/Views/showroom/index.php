@@ -39,6 +39,7 @@
             </p>
         </div>
     </header>
+
     <section class="searchBar">
         <div class="contenedor">
             <form class="searchBar__form">
@@ -47,6 +48,61 @@
             </form>
         </div>
     </section>
+    <!-- Mini carrito -->
+    <div class="miniCarrito">
+        <!-- Botón / indicador del carrito -->
+        <a
+            href="/carrito"
+            class="miniCarrito__boton">
+            🛒
+            <?php if ($carrito['cantidadTotal'] > 0) : ?>
+                <span class="miniCarrito__cantidad">
+                    <?= htmlspecialchars($carrito['cantidadTotal']) ?>
+                </span>
+            <?php endif; ?>
+        </a>
+        <!-- Resumen -->
+        <div class="miniCarrito__resumen">
+            <h2>
+                Tu carrito
+            </h2>
+            <?php if (empty($carrito['productos'])) : ?>
+                <p>
+                    Tu carrito está vacío.
+                </p>
+            <?php else : ?>
+                <?php foreach ($carrito['productos'] as $producto) : ?>
+                    <div class="miniCarrito__producto">
+                        <p>
+                            <?= htmlspecialchars($producto->nombre) ?>
+                        </p>
+                        <p>
+                            <?= htmlspecialchars($producto->cantidad) ?>
+                            ×
+                            $<?= number_format(
+                                    (float) $producto->precio_actual,
+                                    2
+                                ) ?>
+                        </p>
+                    </div>
+                <?php endforeach; ?>
+                <p class="miniCarrito__total">
+                    Total:
+                    <strong>
+                        $<?= number_format(
+                                (float) $carrito['total'],
+                                2
+                            ) ?>
+                    </strong>
+                </p>
+                <a
+                    href="/carrito"
+                    class="miniCarrito__ver">
+                    Ver carrito
+                </a>
+            <?php endif; ?>
+        </div>
+    </div>
     <section class="categoriasProductos">
         <div class="contenedor">
             <div class="tituloCategorias">
@@ -122,11 +178,19 @@
                                     <span class="productCard__price">
                                         $<?= number_format((float) $producto->precio_actual, 2) ?>
                                     </span>
-                                    <button
-                                        class="productCard__button"
-                                        type="button">
-                                        <i class="bi bi-plus-lg"></i>
-                                    </button>
+                                    <form
+                                        method="POST"
+                                        action="/carrito/agregar">
+                                        <input
+                                            type="hidden"
+                                            name="id"
+                                            value="<?= htmlspecialchars($producto->id) ?>">
+                                        <button
+                                            class="productCard__button"
+                                            type="submit">
+                                            <i class="bi bi-plus-lg"></i>
+                                        </button>
+                                    </form>
                                 </div>
                             </div>
                         </article>

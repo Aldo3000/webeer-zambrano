@@ -33,6 +33,14 @@ class Producto extends ActiveRecord
     // información relacionada obtenida mediante JOIN.
     public $categoria_nombre;
     public $marca_nombre;
+    // Cantidad utilizada temporalmente para representar
+    // la cantidad del producto dentro del carrito.
+    // No corresponde a una columna de la tabla productos.
+    public $cantidad;
+    // Indica si la cantidad solicitada en el carrito
+    // supera el stock disponible actualmente.
+    // No corresponde a una columna de la tabla productos.
+    public $stock_insuficiente;
 
 
     public function __construct($args = [])
@@ -47,7 +55,8 @@ class Producto extends ActiveRecord
         $this->precio_actual = 0;
         $this->stock = 0;
         $this->imagen_principal = '';
-
+        $this->cantidad = 0;
+        $this->stock_insuficiente = false;
         $this->categoria_nombre = '';
         $this->marca_nombre = '';
     }

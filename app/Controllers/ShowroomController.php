@@ -16,6 +16,9 @@ class ShowroomController
         $productos = Producto::all();
         // Obtiene todas las categorías registradas.
         $categorias = Categoria::all();
+
+        // Obtiene el resumen actual del carrito.
+        $resumenCarrito = CarritoController::obtenerResumen();
         // Crea una instancia del Router.
         $router = new Router();
         // Renderiza la vista del showroom.
@@ -25,7 +28,9 @@ class ShowroomController
                 // Envía los productos a la vista.
                 'productos' => $productos,
                 // Envía las categorías a la vista.
-                'categorias' => $categorias
+                'categorias' => $categorias,
+                // Información necesaria para el mini carrito.
+                'carrito' => $resumenCarrito
             ],
             false
         );

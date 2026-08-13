@@ -238,3 +238,78 @@ $router->get('/productos', function () {
 $router->get('/productos/ver', function () {
     ShowroomController::ver();
 });
+
+/*
+|--------------------------------------------------------------------------
+| Carrito
+|--------------------------------------------------------------------------
+|
+| Muestra el carrito actual del cliente.
+|
+*/
+$router->get('/carrito', function () {
+     CarritoController::index();
+});
+
+/*
+|--------------------------------------------------------------------------
+| Agregar producto al carrito
+|--------------------------------------------------------------------------
+|
+| Agrega un producto al carrito mediante una petición POST.
+|
+*/
+
+$router->post('/carrito/agregar', function () {
+
+    CarritoController::agregar();
+
+});
+
+/*
+|--------------------------------------------------------------------------
+| Aumentar cantidad del carrito
+|--------------------------------------------------------------------------
+*/
+
+$router->post('/carrito/aumentar', function () {
+
+    CarritoController::aumentar();
+
+});
+
+/*
+|--------------------------------------------------------------------------
+| Disminuir cantidad del carrito
+|--------------------------------------------------------------------------
+*/
+
+$router->post('/carrito/disminuir', function () {
+
+    CarritoController::disminuir();
+
+});
+
+/*
+|--------------------------------------------------------------------------
+| Eliminar producto del carrito
+|--------------------------------------------------------------------------
+*/
+
+$router->post('/carrito/eliminar', function () {
+
+    CarritoController::eliminar();
+
+});
+
+/*
+|--------------------------------------------------------------------------
+| Vaciar carrito
+|--------------------------------------------------------------------------
+*/
+
+$router->post('/carrito/vaciar', function () {
+
+    CarritoController::vaciar();
+
+});
