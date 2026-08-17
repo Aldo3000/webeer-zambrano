@@ -159,6 +159,21 @@ unset($_SESSION['carrito_error']);
                             ) ?>
                     </strong>
                 </p>
+                <!-- Continuar al checkout -->
+                <?php if (!$hayProblemasStock) : ?>
+
+                    <a href="/checkout">
+                        Continuar compra
+                    </a>
+
+                <?php else : ?>
+
+                    <p>
+                        Corrige las cantidades del carrito
+                        antes de continuar con la compra.
+                    </p>
+
+                <?php endif; ?>
             </section>
         <?php endif; ?>
     </div>

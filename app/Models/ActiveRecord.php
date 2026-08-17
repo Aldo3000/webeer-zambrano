@@ -73,6 +73,13 @@ class ActiveRecord
         // Ejecutar la consulta
         $resultado = static::$db->query($query);
 
+        // Si el registro se creó correctamente,
+        // obtenemos el ID generado automáticamente
+        // por MySQL y lo asignamos al objeto actual.
+        if ($resultado) {
+            $this->id = static::$db->insert_id;
+        }
+        // Regresa el resultado de la consulta.
         return $resultado;
     }
 
@@ -260,5 +267,33 @@ class ActiveRecord
 
         // Devuelve el primer resultado o null.
         return array_shift($resultado);
+    }
+
+    /**
+     * Inicia una transacción en la base de datos.
+     */
+    public static function iniciarTransaccion()
+    {
+        static::$db->begin_transaction();
+    }
+
+
+    /**
+     * Confirma todos los cambios
+     * realizados durante la transacción.
+     */
+    public static function confirmarTransaccion()
+    {
+        static::$db->commit();
+    }
+
+
+    /**
+     * Revierte todos los cambios
+     * realizados durante la transacción.
+     */
+    public static function revertirTransaccion()
+    {
+        static::$db->rollback();
     }
 }

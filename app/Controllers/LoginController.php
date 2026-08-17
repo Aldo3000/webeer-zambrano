@@ -63,6 +63,11 @@ class LoginController
                         session_start();
                         // Indica que el usuario ha iniciado sesión.
                         $_SESSION['login'] = true;
+                        // Elimina cualquier información temporal
+                        // que pudiera haber quedado de un checkout
+                        // realizado como invitado.
+                        unset($_SESSION['checkout_datos']);
+                        unset($_SESSION['checkout_errores']);
                         // Guarda el ID del usuario.
                         $_SESSION['usuario_id'] = $usuario->id;
                         // Guarda el nombre del usuario.

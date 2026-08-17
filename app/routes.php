@@ -313,3 +313,49 @@ $router->post('/carrito/vaciar', function () {
     CarritoController::vaciar();
 
 });
+
+/*
+|--------------------------------------------------------------------------
+| Checkout
+|--------------------------------------------------------------------------
+*/
+
+// Mostrar checkout
+$router->get('/checkout', function () {
+
+    CheckoutController::index();
+
+});
+
+// Procesar formulario del checkout
+$router->post('/checkout', function () {
+
+    CheckoutController::procesar();
+
+});
+
+// Mostrar pantalla de confirmación
+$router->get('/checkout/confirmar', function () {
+
+    CheckoutController::confirmar();
+
+});
+
+
+// Procesar selección de método de pago
+$router->post('/checkout/confirmar', function () {
+
+    CheckoutController::procesarConfirmacion();
+
+});
+
+/*
+|--------------------------------------------------------------------------
+| Pedido realizado
+|--------------------------------------------------------------------------
+*/
+$router->get('/checkout/exitoso', function () {
+
+    CheckoutController::exitoso();
+
+});

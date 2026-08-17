@@ -37,6 +37,7 @@ class Producto extends ActiveRecord
     // la cantidad del producto dentro del carrito.
     // No corresponde a una columna de la tabla productos.
     public $cantidad;
+    public $subtotal;
     // Indica si la cantidad solicitada en el carrito
     // supera el stock disponible actualmente.
     // No corresponde a una columna de la tabla productos.
@@ -59,6 +60,7 @@ class Producto extends ActiveRecord
         $this->stock_insuficiente = false;
         $this->categoria_nombre = '';
         $this->marca_nombre = '';
+        $this->marca_nombre = 0;
     }
 
     public function validar()
@@ -172,5 +174,46 @@ class Producto extends ActiveRecord
 
         // Devuelve el producto completo.
         return $producto;
+    }
+
+    /**
+     * Reduce el stock de un producto.
+     *
+     * La reducción solamente se realiza
+     * si existe suficiente stock disponible.
+     *
+     * @param int $id
+     * @param int $cantidad
+     * @return bool
+     */
+    public static function reducirStock($id, $cantidad)
+    {
+        // Sanitizamos los valores numéricos.
+        $id = (int) $id;
+        $cantidad = (int) $cantidad;
+
+        // La cantidad debe ser mayor a cero.
+        if ($id <= 0 || $cantidad <= 0) {
+            return false;
+        }
+
+        // Actualizamos el stock solamente
+        // cuando existe suficiente inventario.
+        $query = "UPDATE " . self::$tabla . "
+              SET stock = stock - $cantidad
+              WHERE id = $id
+              AND stock >= $cantidad";
+
+        // Ejecutamos la actualización.
+        $resultado = self::$db->query($query);
+
+        // Si la consulta falló, regresamos false.
+        if (!$resultado) {
+            return false;
+        }
+
+        // Verificamos que realmente se haya
+        // actualizado un registro.
+        return self::$db->affected_rows === 1;
     }
 }

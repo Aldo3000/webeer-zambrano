@@ -56,3 +56,24 @@ function iniciarSesion()
         session_start();
     }
 }
+
+/**
+ * Verifica si existe un usuario
+ * actualmente autenticado.
+ *
+ * Esta función solamente consulta
+ * la sesión y no realiza redirecciones.
+ *
+ * @return bool
+ */
+function usuarioAutenticado()
+{
+    // Inicia la sesión si todavía
+    // no existe una activa.
+    iniciarSesion();
+
+    // Devuelve true solamente si
+    // existe una sesión de usuario válida.
+    return isset($_SESSION['login'])
+        && $_SESSION['login'] === true;
+}
