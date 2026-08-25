@@ -65,4 +65,24 @@ class DetallePedido extends ActiveRecord
         $this->subtotal =
             $args['subtotal'] ?? 0;
     }
+
+    /**
+     * Obtiene todos los detalles
+     * pertenecientes a un pedido.
+     */
+    public static function obtenerPorPedido($pedidoId)
+    {
+        $pedidoId = (int) $pedidoId;
+
+        if ($pedidoId <= 0) {
+            return [];
+        }
+
+        $query = "SELECT *
+              FROM " . static::$tabla . "
+              WHERE pedido_id = {$pedidoId}
+              ORDER BY id ASC";
+
+        return static::consultaSQL($query);
+    }
 }

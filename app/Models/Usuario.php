@@ -104,4 +104,124 @@ class Usuario extends ActiveRecord
 
         return static::$errores;
     }
+
+    /**
+     * Valida los datos de dirección
+     * del usuario.
+     */
+    public function validarDireccion()
+    {
+        static::$errores = [];
+
+        if (!$this->calle) {
+            static::$errores[] =
+                'La calle es obligatoria.';
+        }
+
+        if (!$this->numero) {
+            static::$errores[] =
+                'El número es obligatorio.';
+        }
+
+        if (!$this->colonia) {
+            static::$errores[] =
+                'La colonia es obligatoria.';
+        }
+
+        if (!$this->municipio) {
+            static::$errores[] =
+                'El municipio es obligatorio.';
+        }
+
+        if (!$this->estado) {
+            static::$errores[] =
+                'El estado es obligatorio.';
+        }
+
+        if (!$this->codigo_postal) {
+            static::$errores[] =
+                'El código postal es obligatorio.';
+        }
+
+        return static::$errores;
+    }
+
+    /**
+     * Obtiene el usuario mediante su ID.
+     *
+     * @param int $id
+     * @return Usuario|null
+     */
+    public static function buscarPorId($id)
+    {
+        $id = (int) $id;
+
+        if ($id <= 0) {
+            return null;
+        }
+
+        return self::find($id);
+    }
+
+    /**
+     * Verifica si un correo electrónico
+     * ya pertenece a otro usuario.
+     *
+     * @param string $correo
+     * @param int $usuarioId
+     * @return bool
+     */
+
+    public static function correoExisteEnOtroUsuario($correo, $usuarioId)
+    {
+        $correo = trim($correo);
+        $usuarioId = (int) $usuarioId;
+
+        if ($correo === '') {
+            return false;
+        }
+
+        $usuario = self::where(
+            'correo',
+            $correo
+        );
+
+        // No existe ningún usuario con ese correo.
+        if (!$usuario) {
+            return false;
+        }
+
+        // Si el correo pertenece al mismo usuario
+        // que estamos editando, sí puede conservarlo.
+        if ((int) $usuario->id === $usuarioId) {
+            return false;
+        }
+
+        // El correo pertenece a otro usuario.
+        return true;
+    }
+
+    /**
+     * Guarda únicamente los datos de dirección
+     * del usuario.
+     */
+    public function guardarDireccion()
+    {
+        return $this->guardar();
+    }
+
+    /**
+     * Determina si el usuario tiene
+     * una dirección de envío completa.
+     */
+    public function tieneDireccion()
+    {
+        return
+            !empty($this->calle) &&
+            !empty($this->numero) &&
+            !empty($this->colonia) &&
+            !empty($this->municipio) &&
+            !empty($this->estado) &&
+            !empty($this->codigo_postal);
+    }
 }

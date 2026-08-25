@@ -12,6 +12,15 @@ class LoginController
      */
     public static function login()
     {
+
+        iniciarSesion();
+
+        // Si ya existe una sesión activa,
+        // enviamos al usuario directamente
+        // a su panel correspondiente.
+        if (isset($_SESSION['login']) && $_SESSION['login'] === true) {
+            self::redireccionarSegunRol();
+        }
         // Arreglo que almacenará los mensajes de error.
         $errores = [];
         // Variables utilizadas para conservar
@@ -60,7 +69,11 @@ class LoginController
                             'La contraseña es incorrecta.';
                     } else {
                         // Inicia una nueva sesión o continúa una existente.
-                        session_start();
+                        iniciarSesion();
+
+                        // Regenera el ID de sesión
+                        // después de una autenticación exitosa.
+                        session_regenerate_id(true);
                         // Indica que el usuario ha iniciado sesión.
                         $_SESSION['login'] = true;
                         // Elimina cualquier información temporal
@@ -75,7 +88,9 @@ class LoginController
                         // Guarda el rol del usuario.
                         $_SESSION['rol_id'] = $usuario->rol_id;
                         // Redirecciona al Dashboard.
-                        header('Location: /admin');
+                        // Redirecciona al usuario
+                        // según el rol de su cuenta.
+                        self::redireccionarSegunRol();
                         exit;
                     }
                 }
@@ -111,6 +126,56 @@ class LoginController
         // Regresa al formulario de Login.
         header('Location: /login');
 
+        exit;
+    }
+
+    /**
+     * Redirecciona al usuario según
+     * el rol de su cuenta.
+     */
+    private static function redireccionarSegunRol()
+    {
+        // Obtiene el rol almacenado
+        // durante el inicio de sesión.
+        $rolId =
+            $_SESSION['rol_id'] ?? null;
+        /*
+    |--------------------------------------------------------------------------
+    | Administrador
+    |--------------------------------------------------------------------------
+    */
+        if ((int) $rolId === 1) {
+            header('Location: /admin');
+            exit;
+        }
+        /*
+    |--------------------------------------------------------------------------
+    | Empleado
+    |--------------------------------------------------------------------------
+    */
+        if ((int) $rolId === 2) {
+            header('Location: /admin');
+            exit;
+        }
+        /*
+    |--------------------------------------------------------------------------
+    | Cliente
+    |--------------------------------------------------------------------------
+    */
+        if ((int) $rolId === 3) {
+            header('Location: /cuenta');
+            exit;
+        }
+        /*
+    |--------------------------------------------------------------------------
+    | Rol no válido
+    |--------------------------------------------------------------------------
+    */
+        // Si el usuario tiene un rol que
+        // no contemplamos, cerramos la sesión.
+        $_SESSION = [];
+        session_destroy();
+        header('Location: /login');
         exit;
     }
 }

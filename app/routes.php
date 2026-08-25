@@ -190,14 +190,12 @@ $router->post('/admin/usuarios/crear', function () {
 $router->get('/login', function () {
 
     LoginController::login();
-
 });
 
 // Procesar el formulario.
 $router->post('/login', function () {
 
     LoginController::login();
-
 });
 
 /*
@@ -209,7 +207,6 @@ $router->post('/login', function () {
 $router->get('/logout', function () {
 
     LoginController::logout();
-
 });
 
 /*
@@ -248,7 +245,7 @@ $router->get('/productos/ver', function () {
 |
 */
 $router->get('/carrito', function () {
-     CarritoController::index();
+    CarritoController::index();
 });
 
 /*
@@ -263,7 +260,6 @@ $router->get('/carrito', function () {
 $router->post('/carrito/agregar', function () {
 
     CarritoController::agregar();
-
 });
 
 /*
@@ -275,7 +271,6 @@ $router->post('/carrito/agregar', function () {
 $router->post('/carrito/aumentar', function () {
 
     CarritoController::aumentar();
-
 });
 
 /*
@@ -287,7 +282,6 @@ $router->post('/carrito/aumentar', function () {
 $router->post('/carrito/disminuir', function () {
 
     CarritoController::disminuir();
-
 });
 
 /*
@@ -299,7 +293,6 @@ $router->post('/carrito/disminuir', function () {
 $router->post('/carrito/eliminar', function () {
 
     CarritoController::eliminar();
-
 });
 
 /*
@@ -311,7 +304,6 @@ $router->post('/carrito/eliminar', function () {
 $router->post('/carrito/vaciar', function () {
 
     CarritoController::vaciar();
-
 });
 
 /*
@@ -319,34 +311,21 @@ $router->post('/carrito/vaciar', function () {
 | Checkout
 |--------------------------------------------------------------------------
 */
-
 // Mostrar checkout
 $router->get('/checkout', function () {
-
     CheckoutController::index();
-
 });
-
 // Procesar formulario del checkout
 $router->post('/checkout', function () {
-
     CheckoutController::procesar();
-
 });
-
 // Mostrar pantalla de confirmación
 $router->get('/checkout/confirmar', function () {
-
     CheckoutController::confirmar();
-
 });
-
-
 // Procesar selección de método de pago
 $router->post('/checkout/confirmar', function () {
-
     CheckoutController::procesarConfirmacion();
-
 });
 
 /*
@@ -355,7 +334,53 @@ $router->post('/checkout/confirmar', function () {
 |--------------------------------------------------------------------------
 */
 $router->get('/checkout/exitoso', function () {
-
     CheckoutController::exitoso();
-
 });
+
+/*
+|--------------------------------------------------------------------------
+| Panel del cliente
+|--------------------------------------------------------------------------
+*/
+$router->get('/cuenta', function () {
+    CuentaController::index();
+});
+
+$router->get('/cuenta/perfil', function () {
+    CuentaController::perfil();
+});
+$router->post('/cuenta/perfil', function () {
+    CuentaController::actualizarPerfil();
+});
+
+/*
+|--------------------------------------------------------------------------
+| Historial de pedidos del cliente
+|--------------------------------------------------------------------------
+*/
+$router->get('/cuenta/pedidos', function () {
+    CuentaController::pedidos();
+});
+
+/*
+|--------------------------------------------------------------------------
+| Detalle de pedido del cliente
+|--------------------------------------------------------------------------
+*/
+
+$router->get('/cuenta/pedido', function () {
+    CuentaController::pedido();
+});
+
+/*
+|--------------------------------------------------------------------------
+| Repetir pedido
+|--------------------------------------------------------------------------
+*/
+
+$router->post(
+    '/cuenta/pedido/repetir',
+    function () {
+        CuentaController::repetirPedido();
+    }
+);

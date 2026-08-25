@@ -265,6 +265,39 @@ class CheckoutController
             header('Location: /checkout');
             exit;
         }
+        /*
+|--------------------------------------------------------------------------
+| Guardar dirección del cliente
+|--------------------------------------------------------------------------
+*/
+        // Obtiene el ID del usuario autenticado.
+        $usuarioId = $_SESSION['usuario_id'] ?? null;
+        // Solamente hacemos esto si existe
+        // un usuario autenticado.
+        if ($usuarioId) {
+            // Busca al usuario actual.
+            $usuario = Usuario::buscarPorId($usuarioId);
+            // Verifica que el usuario exista
+            // y que todavía no tenga una dirección.
+            if ($usuario && !$usuario->tieneDireccion()) {
+                // Guarda la dirección enviada
+                // desde el checkout.
+                $usuario->calle =
+                    $calle;
+                $usuario->numero =
+                    $numero;
+                $usuario->colonia =
+                    $colonia;
+                $usuario->municipio =
+                    $municipio;
+                $usuario->estado =
+                    $estado;
+                $usuario->codigo_postal =
+                    $codigo_postal;
+                // Guarda los cambios en la base de datos.
+                $usuario->guardar();
+            }
+        }
         // Continuamos al siguiente paso.
         header('Location: /checkout/confirmar');
         exit;

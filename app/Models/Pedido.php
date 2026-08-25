@@ -128,4 +128,98 @@ class Pedido extends ActiveRecord
         $this->notas =
             $args['notas'] ?? '';
     }
+
+    /**
+     * Obtiene todos los pedidos
+     * pertenecientes a un usuario.
+     *
+     * @param int $usuarioId
+     * @return array
+     */
+    public static function obtenerPorUsuario($usuarioId)
+    {
+        $usuarioId = (int) $usuarioId;
+
+        if ($usuarioId <= 0) {
+            return [];
+        }
+
+        $query = "SELECT *
+              FROM " . static::$tabla . "
+              WHERE usuario_id = {$usuarioId}
+              ORDER BY created_at DESC";
+
+        return static::consultaSQL($query);
+    }
+
+    /**
+     * Obtiene un pedido específico
+     * perteneciente a un usuario.
+     *
+     * @param int $pedidoId
+     * @param int $usuarioId
+     * @return Pedido|null
+     */
+    public static function obtenerPorUsuarioPedido($pedidoId, $usuarioId)
+    {
+        $pedidoId = (int) $pedidoId;
+        $usuarioId = (int) $usuarioId;
+
+        if ($pedidoId <= 0 || $usuarioId <= 0) {
+            return null;
+        }
+
+        $query = "SELECT *
+              FROM " . static::$tabla . "
+              WHERE id = {$pedidoId}
+              AND usuario_id = {$usuarioId}
+              LIMIT 1";
+
+        $resultado = static::consultaSQL($query);
+
+        return array_shift($resultado);
+    }
+
+    /**
+     * Obtiene los pedidos de un usuario.
+     *
+     * Puede recibir un estado para filtrar
+     * los resultados.
+     *
+     * @param int $usuarioId
+     * @param int|null $estadoPedidoId
+     * @return array
+     */
+    public static function obtenerPorUsuarioEstado(
+        $usuarioId,
+        $estadoPedidoId = null
+    ) {
+        $usuarioId = (int) $usuarioId;
+
+        if ($usuarioId <= 0) {
+            return [];
+        }
+
+        $query = "SELECT *
+              FROM " . static::$tabla . "
+              WHERE usuario_id = {$usuarioId}";
+
+        // Si se recibió un estado,
+        // agregamos el filtro.
+        if ($estadoPedidoId !== null) {
+
+            $estadoPedidoId =
+                (int) $estadoPedidoId;
+
+            $query .= "
+            AND estado_pedido_id = {$estadoPedidoId}
+        ";
+        }
+
+        $query .= "
+        ORDER BY id DESC
+    ";
+
+        return static::consultaSQL($query);
+    }
 }
