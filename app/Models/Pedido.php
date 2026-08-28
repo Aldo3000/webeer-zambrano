@@ -222,4 +222,101 @@ class Pedido extends ActiveRecord
 
         return static::consultaSQL($query);
     }
+
+    /**
+     * Obtiene todos los pedidos registrados.
+     *
+     * @return array
+     */
+    public static function obtenerTodos()
+    {
+        $query = "SELECT *
+              FROM " . static::$tabla . "
+              ORDER BY created_at DESC";
+
+        return static::consultaSQL($query);
+    }
+
+    /**
+     * Actualiza el estado de un pedido.
+     *
+     * @param int $pedidoId
+     * @param int $estadoPedidoId
+     * @return bool
+     */
+    public static function actualizarEstado($pedidoId, $estadoPedidoId)
+    {
+        $pedidoId = (int) $pedidoId;
+        $estadoPedidoId = (int) $estadoPedidoId;
+
+        if ($pedidoId <= 0 || $estadoPedidoId <= 0) {
+            return false;
+        }
+
+        $query = "UPDATE " . static::$tabla . "
+              SET estado_pedido_id = {$estadoPedidoId}
+              WHERE id = {$pedidoId}
+              LIMIT 1";
+
+        $resultado = static::$db->query($query);
+
+        return $resultado;
+    }
+    /**
+     * Obtiene pedidos para administración
+     * aplicando filtros de búsqueda y estado.
+     *
+     * @param string $busqueda
+     * @param int|null $estadoPedidoId
+     * @return array
+     */
+    public static function buscarAdmin($busqueda = '', $estadoPedidoId = null)
+    {
+        $busqueda = trim($busqueda);
+
+        $query = "SELECT *
+              FROM " . static::$tabla . "
+              WHERE 1 = 1";
+        /*
+    |--------------------------------------------------------------------------
+    | Filtro por estado
+    |--------------------------------------------------------------------------
+    */
+        if ($estadoPedidoId !== null) {
+            $estadoPedidoId =
+                (int) $estadoPedidoId;
+            $query .= "
+            AND estado_pedido_id =
+            {$estadoPedidoId}
+        ";
+        }
+        /*
+    |--------------------------------------------------------------------------
+    | Búsqueda
+    |--------------------------------------------------------------------------
+    */
+        if ($busqueda !== '') {
+            $busqueda =
+                static::$db->escape_string(
+                    $busqueda
+                );
+            $query .= "
+            AND (
+                numero_pedido LIKE '%{$busqueda}%'
+                OR nombre LIKE '%{$busqueda}%'
+                OR apellido LIKE '%{$busqueda}%'
+                OR correo LIKE '%{$busqueda}%'
+            )
+        ";
+        }
+        /*
+    |--------------------------------------------------------------------------
+    | Orden
+    |--------------------------------------------------------------------------
+    */
+        $query .= "
+        ORDER BY created_at DESC
+    ";
+        return static::consultaSQL($query);
+    }
 }

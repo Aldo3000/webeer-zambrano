@@ -384,3 +384,80 @@ $router->post(
         CuentaController::repetirPedido();
     }
 );
+
+/*
+|--------------------------------------------------------------------------
+| Administración de pedidos
+|--------------------------------------------------------------------------
+*/
+$router->get('/admin/pedidos', function () {
+    PedidoAdminController::index();
+});
+
+/*
+|--------------------------------------------------------------------------
+| Detalle administrativo de pedido
+|--------------------------------------------------------------------------
+*/
+
+$router->get('/admin/pedido', function () {
+    PedidoAdminController::detalle();
+});
+
+/*
+|--------------------------------------------------------------------------
+| Actualizar estado administrativo del pedido
+|--------------------------------------------------------------------------
+*/
+$router->post(
+    '/admin/pedido/estado',
+    function () {
+        PedidoAdminController::actualizarEstado();
+    }
+);
+
+/*
+|--------------------------------------------------------------------------
+| Administración de clientes
+|--------------------------------------------------------------------------
+*/
+$router->get('/admin/clientes', function () {
+    UsuarioAdminController::index();
+});
+
+/*
+|--------------------------------------------------------------------------
+| Detalle administrativo del cliente
+|--------------------------------------------------------------------------
+*/
+$router->get('/admin/cliente', function () {
+    UsuarioAdminController::detalle();
+});
+
+/*
+|--------------------------------------------------------------------------
+| Editar cliente
+|--------------------------------------------------------------------------
+*/
+
+$router->get('/admin/cliente/editar', function () {
+    UsuarioAdminController::editar();
+});
+/*
+|--------------------------------------------------------------------------
+| Actualizar cliente
+|--------------------------------------------------------------------------
+*/
+$router->post('/admin/cliente/actualizar', function () {
+    UsuarioAdminController::actualizar();
+});
+
+/*
+|--------------------------------------------------------------------------
+| Cambiar estado del cliente
+|--------------------------------------------------------------------------
+*/
+
+$router->post('/admin/cliente/estado', function () {
+    UsuarioAdminController::cambiarEstado();
+});

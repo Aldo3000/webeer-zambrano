@@ -39,6 +39,8 @@ require_once __DIR__ . '/../app/Controllers/ShowroomController.php';
 require_once __DIR__ . '/../app/Controllers/CarritoController.php';
 require_once __DIR__ . '/../app/Controllers/CheckoutController.php';
 require_once __DIR__ . '/../app/Controllers/CuentaController.php';
+require_once __DIR__ . '/../app/Controllers/PedidoAdminController.php';
+require_once __DIR__ . '/../app/Controllers/UsuarioAdminController.php';
 
 
 /*

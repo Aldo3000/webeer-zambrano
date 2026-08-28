@@ -55,6 +55,8 @@ class LoginController
                 if (!$usuario) {
                     $errores[] =
                         'El usuario no existe.';
+                } elseif ((int) $usuario->activo !== 1) {
+                    $errores[] = 'Tu cuenta se encuentra desactivada.';
                 } else {
 
                     // Verifica que la contraseña escrita por el usuario

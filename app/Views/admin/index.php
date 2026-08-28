@@ -125,4 +125,46 @@
         </article>
     </section>
 
+    <section class="adminCard">
+
+        <h2>
+            Pedidos
+        </h2>
+
+        <p>
+            Consulta y administra los pedidos
+            realizados por los clientes.
+        </p>
+
+        <a
+            href="/admin/pedidos"
+            class="adminCard__button">
+
+            Ver pedidos
+
+        </a>
+
+    </section>
+
+    <section class="adminCard">
+
+        <h2>
+            Clientes
+        </h2>
+
+        <p>
+            Consulta la información
+            de los clientes registrados.
+        </p>
+
+        <a
+            href="/admin/clientes"
+            class="adminCard__button">
+
+            Ver clientes
+
+        </a>
+
+    </section>
+
 </main>
