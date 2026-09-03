@@ -223,3 +223,34 @@ botonesCategorias.forEach((boton) => {
     });
 
 });
+
+document.addEventListener('DOMContentLoaded', () => {
+    const categoria = document.querySelector('#categoria_id');
+    const marca = document.querySelector('#marca_id');
+
+    if (!categoria || !marca) return;
+
+    categoria.addEventListener('change', async () => {
+        const categoriaId = categoria.value;
+
+        marca.innerHTML = '<option value="">Cargando...</option>';
+
+        if (!categoriaId) {
+            marca.innerHTML = '<option value="">Selecciona una marca</option>';
+            return;
+        }
+
+        try {
+            const respuesta = await fetch(`/admin/productos/marcas?categoria_id=${categoriaId}`);
+            const marcas = await respuesta.json();
+
+            marca.innerHTML = '<option value="">Selecciona una marca</option>';
+
+            marcas.forEach(marcaItem => {
+                marca.innerHTML += `<option value="${marcaItem.id}">${marcaItem.nombre}</option>`;
+            });
+        } catch (error) {
+            marca.innerHTML = '<option value="">Error al cargar marcas</option>';
+        }
+    });
+});

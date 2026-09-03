@@ -5,6 +5,7 @@
         </p>
     </div>
 </footer>
+<script src="../../../build/js/app.js"></script>
 </body>
 
 </html>

@@ -23,6 +23,7 @@ require_once __DIR__ . '/../app/Models/Marca.php';
 require_once __DIR__ . '/../app/Models/MetodoPago.php';
 require_once __DIR__ . '/../app/Models/Pedido.php';
 require_once __DIR__ . '/../app/Models/DetallePedido.php';
+require_once __DIR__ . '/../app/Models/CategoriaMarca.php';
 
 // Router
 require_once __DIR__ . '/../app/Router/Router.php';
@@ -41,6 +42,7 @@ require_once __DIR__ . '/../app/Controllers/CheckoutController.php';
 require_once __DIR__ . '/../app/Controllers/CuentaController.php';
 require_once __DIR__ . '/../app/Controllers/PedidoAdminController.php';
 require_once __DIR__ . '/../app/Controllers/UsuarioAdminController.php';
+require_once __DIR__ . '/../app/Controllers/CategoriaMarcaController.php';
 
 
 /*

@@ -461,3 +461,21 @@ $router->post('/admin/cliente/actualizar', function () {
 $router->post('/admin/cliente/estado', function () {
     UsuarioAdminController::cambiarEstado();
 });
+
+/*
+|--------------------------------------------------------------------------
+| Marcas por categoría
+|--------------------------------------------------------------------------
+*/
+
+$router->get('/admin/productos/marcas', function () {
+    ProductoController::marcasPorCategoria();
+});
+
+$router->get('/admin/categoria-marca', function () {
+    CategoriaMarcaController::index();
+});
+
+$router->post('/admin/categoria-marca', function () {
+    CategoriaMarcaController::index();
+});

@@ -123,6 +123,23 @@
                 Nueva Marca
             </a>
         </article>
+        <hr>
+
+        <!-- Relación categorías y marcas -->
+        <article>
+            <h3>
+                Categorías y marcas
+            </h3>
+
+            <p>
+                Define qué marcas pueden utilizarse
+                dentro de cada categoría.
+            </p>
+
+            <a href="/admin/categoria-marca">
+                Administrar relaciones
+            </a>
+        </article>
     </section>
 
     <section class="adminCard">

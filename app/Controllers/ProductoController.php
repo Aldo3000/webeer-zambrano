@@ -112,8 +112,13 @@ class ProductoController
             $errores = array_merge($errores, $producto->validar());
 
             // Si no existen errores de validación...
-            if (empty($errores)) {
+            // Verifica que la marca pertenezca a la categoría.
+            if (empty($errores) && !Marca::perteneceACategoria($producto->marca_id, $producto->categoria_id)) {
+                $errores[] = 'La marca seleccionada no pertenece a la categoría.';
+            }
 
+            // Si no existen errores...
+            if (empty($errores)) {
                 // Guarda el producto en la base de datos.
                 $resultado = $producto->guardar();
 
@@ -271,9 +276,13 @@ class ProductoController
             // Ejecuta nuevamente las validaciones.
             $errores = array_merge($errores, $producto->validar());
 
+            // Verifica que la marca pertenezca a la categoría.
+            if (empty($errores) && !Marca::perteneceACategoria($producto->marca_id, $producto->categoria_id)) {
+                $errores[] = 'La marca seleccionada no pertenece a la categoría.';
+            }
+
             // Si no existen errores...
             if (empty($errores)) {
-
                 // Guarda los cambios realizados.
                 $resultado = $producto->guardar();
 
@@ -382,5 +391,26 @@ class ProductoController
 
         // Regresa al listado de productos.
         header('Location: /admin/productos');
+    }
+
+    /**
+     * Devuelve marcas de una categoría.
+     */
+    public static function marcasPorCategoria()
+    {
+        $categoriaId = filter_var(
+            $_GET['categoria_id'] ?? null,
+            FILTER_VALIDATE_INT
+        );
+
+        if (!$categoriaId) {
+            echo json_encode([]);
+            exit;
+        }
+
+        $marcas = Marca::obtenerPorCategoria($categoriaId);
+
+        echo json_encode($marcas);
+        exit;
     }
 }

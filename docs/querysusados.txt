@@ -308,3 +308,26 @@ contacto
 | `ON DELETE CASCADE`  | Si eliminas el padre, elimina automáticamente los hijos.               | `pedidos → detalle_pedido`.                                   |
 | `ON DELETE RESTRICT` | Impide eliminar el padre mientras existan registros relacionados.      | `productos`, `categorias`, `marcas`, `estados`, etc.          |
 | `ON DELETE SET NULL` | Si eliminas el padre, coloca `NULL` en la llave foránea del hijo.      | Lo usamos en `productos.categoria_id` y `pedidos.usuario_id`. |
+
+
+
+CREATE TABLE categoria_marca (
+    categoria_id TINYINT UNSIGNED NOT NULL,
+    marca_id TINYINT UNSIGNED NOT NULL,
+
+    PRIMARY KEY (categoria_id, marca_id),
+
+    CONSTRAINT fk_categoria_marca_categoria
+        FOREIGN KEY (categoria_id)
+        REFERENCES categorias(id)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE,
+
+    CONSTRAINT fk_categoria_marca_marca
+        FOREIGN KEY (marca_id)
+        REFERENCES marcas(id)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE
+) ENGINE=InnoDB
+DEFAULT CHARSET=utf8mb4
+COLLATE=utf8mb4_0900_ai_ci;
